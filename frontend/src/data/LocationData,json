@@ -1,0 +1,24 @@
+[
+    {
+      "id": 1,
+      "name": "Munnar",
+      "image": "munnar.jpg",
+      "description": "A beautiful hill station in Kerala.",
+      "rating": 4.5
+    },
+    {
+      "id": 2,
+      "name": "Alleppey",
+      "image": "alleppey.jpg",
+      "description": "Known for its serene backwaters.",
+      "rating": 4.7
+    },
+    {
+      "id": 3,
+      "name": "Wayanad",
+      "image": "wayanad.jpg",
+      "description": "Famous for its lush greenery and waterfalls.",
+      "rating": 4.6
+    }
+  ]
+  

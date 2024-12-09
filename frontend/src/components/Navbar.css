@@ -1,0 +1,57 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;    
+    width: 1000px;
+    background: rgba( 255, 255, 255, 0.1 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10px );
+  -webkit-backdrop-filter: blur( 20px );
+  border-radius: 30px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .logo {
+    height: 100px;
+    width: 100px; /* Set equal width and height for perfect circle */
+    display: block;
+    border-radius: 50%; /* Makes the element circular */
+    object-fit: cover; /* Ensures the image covers the circular area properly */
+}
+.search-bar {
+  color: black;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  width: 40%;
+  height: 40px;
+}
+  .nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links li {
+    margin-left: 2rem;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #007bff;
+  }
+  
+  

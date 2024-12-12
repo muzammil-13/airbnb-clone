@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'; // Import Link
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+
 
 const LocationCard = ({ image, title, description, price }) => {
   return (
@@ -24,12 +26,14 @@ const LocationCard = ({ image, title, description, price }) => {
           {description}
         </Typography>
         <Typography variant="body2" color="text.primary"> {/* Display the price */}
-          From ₹{price}
+          Starting at just ₹{price}
         </Typography>
       </CardContent>
-      <CardActions> {/* Optional actions */}
+      <CardActions>
         <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <Link to={`/details/${title}`}> {/* Link to /details/locationTitle */}
+          <Button size="small">Details</Button>
+        </Link>
       </CardActions>
     </Card>
   );

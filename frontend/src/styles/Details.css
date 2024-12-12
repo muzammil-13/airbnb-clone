@@ -1,0 +1,77 @@
+.details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    padding: 20px;       /* Add some padding around the content */
+    min-height: calc(100vh - 64px);  /* Ensure content takes up full viewport height (adjust 64px if your header/footer is different) */
+
+}
+
+.details-card {
+    max-width: 800px; /* Set a maximum width for the card */
+    width: 90%;      /* Occupy a percentage of the container width */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    border-radius: 8px; /* Rounded corners for the card */
+    overflow: hidden; /* Hide any content that overflows */
+
+
+}
+
+
+.details-card .MuiCardMedia-root {  /* Style for Material-UI CardMedia (image) */
+    height: 400px; /* Set a specific height, or use 'auto' for responsive height */
+    object-fit: cover; /* Ensure image covers the entire area */
+
+}
+
+.details-card .MuiCardContent-root { /* Style for the card content */
+    padding: 20px;
+
+}
+
+.details-card .MuiTypography-h4 {  /* Main Title */
+    margin-bottom: 10px;
+
+}
+
+
+.details-card .MuiTypography-h6 { /* Price */
+    margin-bottom: 15px;
+
+}
+
+
+.details-card .MuiTypography-body1 {  /* Description */
+    margin-bottom: 20px;
+    line-height: 1.6; /* Improve readability */
+    white-space: pre-line;  /* Preserve whitespace and line breaks from the description text */
+
+}
+
+
+
+.details-card .MuiButtonBase-root { /* "Book Now" button (or other buttons) */
+    background-color: #ff5a60; /* Example color - use your theme colors */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add a smooth transition on hover */
+
+}
+
+.details-card .MuiButtonBase-root:hover {
+    background-color: #e64a50; /* Slightly darker color on hover */
+}
+
+/* Responsive adjustments - example for smaller screens*/
+@media (max-width: 600px) {
+    .details-card {
+        width: 100%; /* Card takes full width on small screens */
+    }
+
+    .details-card .MuiCardMedia-root {
+        height: 300px; /* Adjust image height for smaller screens */
+    }
+}

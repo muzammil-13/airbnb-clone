@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import './AuthForm.css'
+import '../styles/AuthForm.css';
 
 function AuthForm() {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState(''); // For signup
-
+  const [username, setUsername] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,13 +21,12 @@ function AuthForm() {
     setIsLoginMode(!isLoginMode);
   };
 
-
   return (
-    <div>
-      <h2>{isLoginMode ? 'Login' : 'Signup'}</h2>
-      <form onSubmit={handleSubmit}>
-        {!isLoginMode && ( // Username field only for signup
-          <div>
+    <div className="auth-form-container"> {/* Added container class */}
+      <h2 className="auth-form-title">{isLoginMode ? 'Login' : 'Signup'}</h2>
+      <form onSubmit={handleSubmit} className="auth-form"> {/* Added form class */}
+        {!isLoginMode && (
+          <div className="form-group"> {/* Added div class */}
             <label htmlFor="username">Username:</label>
             <input
               type="text"
@@ -39,7 +37,7 @@ function AuthForm() {
             />
           </div>
         )}
-        <div>
+        <div className="form-group"> {/* Added div class */}
           <label htmlFor="email">Email:</label>
           <input
             type="email"
@@ -49,7 +47,7 @@ function AuthForm() {
             required
           />
         </div>
-        <div>
+        <div className="form-group"> {/* Added div class */}
           <label htmlFor="password">Password:</label>
           <input
             type="password"
@@ -59,11 +57,13 @@ function AuthForm() {
             required
           />
         </div>
-        <button type="submit">{isLoginMode ? 'Login' : 'Signup'}</button>
+        <button type="submit" className="submit-button">{/* Added button class */}
+          {isLoginMode ? 'Login' : 'Signup'}
+        </button>
       </form>
-      <p>
+      <p className="toggle-mode-text"> {/* Added paragraph class */}
         {isLoginMode ? "Don't have an account?" : "Already have an account?"}
-        <button onClick={toggleMode}>
+        <button onClick={toggleMode} className="toggle-mode-button"> {/* Added button class */}
           {isLoginMode ? 'Signup' : 'Login'}
         </button>
       </p>
@@ -72,4 +72,3 @@ function AuthForm() {
 }
 
 export default AuthForm;
-

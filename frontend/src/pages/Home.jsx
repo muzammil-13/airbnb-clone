@@ -1,8 +1,11 @@
 import React from 'react'
-import './Home.css'
+import '../styles/Home.css'
+import Header from '../components/Header'
 import { useNavigate } from 'react-router-dom'
-import LandingPage from './LandingPage'
-import Navbar from '../components/Navbar'
+import LocationCard from '../components/cards/LocationCard'
+import BasicRating from '../components/cards/BasicRating'
+import PropTypes from 'prop-types';
+import Footer from '../components/Footer'
 
 
 /**
@@ -16,14 +19,14 @@ import Navbar from '../components/Navbar'
 const Home = ({ loggedIn, email }) => {
   const navigate = useNavigate()
 
-  const onButtonClick = () => {
-    navigate('/AuthForm')
-  }
+  // const onButtonClick = () => {
+  //   navigate('/AuthForm')
+  // }
 
   return (
     <>
     <div className="mainContainer">
-      <Navbar/>
+      <Header/>
       <div className="titleContainer">
         <h1>Welcome to SANCHARAM Travels</h1>
       </div>
@@ -33,32 +36,37 @@ const Home = ({ loggedIn, email }) => {
         <p>Discover amazing destinations and create unforgettable memories</p>
       </div>
 
-  <LandingPage/>
-
-      <div className="featuresContainer">
-        <div className="feature">
-          <h3>Best Deals</h3>
-          <p>Find the most competitive prices</p>
-        </div>
-        <div className="feature">
-          <h3>24/7 Support</h3>
-          <p>We're always here to help</p>
-        </div>
-        <div className="feature">
-          <h3>Safe Travel</h3>
-          <p>Your safety is our priority</p>
-        </div>
-      </div>
-
-      {/* <div className="buttonContainer">
-        <input
-          className="inputButton"
-          type="button"
-          onClick={onButtonClick}
-          value={loggedIn ? 'Log out' : 'Log in'}
+  {/* location cards */}
+  <div>
+      <div className="locations-grid">
+        <LocationCard 
+          image="/images/960px-Kumarkom.jpg"
+          title="Kerala Backwaters"
+          description="Experience the serene backwaters of Kerala"
+          price={299}
         />
-        {loggedIn && <div>Logged in as: {email}</div>}
-      </div> */}
+        <LocationCard 
+          image="/images/960px-Kumarkom.jpg"
+          title="Kerala Backwaters"
+          description="Experience the serene backwaters of Kerala"
+          price={299}
+        />
+        <LocationCard 
+          image="/images/960px-Kumarkom.jpg"
+          title="Kerala Backwaters"
+          description="Experience the serene backwaters of Kerala"
+          price={299}
+        />
+        <LocationCard 
+          image="public/images/960px-Kumarkom.jpg"
+          title="Kerala Backwaters"
+          description="Experience the serene backwaters of Kerala"
+          price={299}
+        />
+      </div> {/* Close the locations-grid div */}
+      <BasicRating />
+    </div>
+    <Footer/>
 </div>
     </>
     

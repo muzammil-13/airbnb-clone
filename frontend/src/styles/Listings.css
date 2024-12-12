@@ -1,0 +1,90 @@
+/* Listings Page Styles */
+
+.listings-container {
+    padding: 20px;
+    /* Add any other container styles as needed */
+}
+
+
+.listing-grid {  /* Style the Material UI Grid */
+
+}
+
+
+.listing-card {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);  /* Subtle box shadow */
+    border-radius: 8px;      /* Rounded corners */
+    transition: transform 0.2s ease; /* Smooth hover effect */
+    overflow: hidden;
+
+
+}
+
+.listing-card:hover {
+    transform: translateY(-5px); /* Lift the card slightly on hover */
+}
+
+.listing-card .MuiCardMedia-root { /* Image inside the card */
+  height: 200px; /* Set a fixed height, or use 'auto' and max-height for responsive height based on image */
+  object-fit: cover; /* Cover the entire card area */
+}
+
+
+.listing-card .MuiCardContent-root {
+    padding: 16px; /* Adjust padding as needed */
+}
+
+
+.listing-card .MuiTypography-h5 { /* Listing title */
+  margin-bottom: 8px;
+  font-weight: 600; /* Make title slightly bolder */
+}
+
+.listing-card .MuiTypography-h5 a { /* Style the Link component */
+  text-decoration: none;  /* Remove underline from link */
+  color: inherit;  /* Inherit text color */
+}
+
+
+
+.listing-card .MuiTypography-body2 { /* Listing description */
+    margin-bottom: 12px;
+    color: #666; /* Slightly darker text color */
+
+}
+
+.listing-card .MuiTypography-h6 { /* Listing Price */
+    margin-bottom: 16px;
+    font-weight: 500; /* Slightly bolder */
+
+}
+
+
+
+.listing-card .MuiCardActions-root {  /* "View Details" button container */
+    padding: 8px 16px; /* Adjust padding as needed */
+    display: flex;
+    justify-content: flex-end; /* Align button to the right */
+}
+
+
+.listing-card .MuiButton-root {  /* "View Details" button */
+    /* Style the button as needed (background color, etc.) */
+
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .listing-grid {
+        /* Adjust Grid spacing or other properties for small screens */
+
+    }
+    .listing-card .MuiCardMedia-root {
+        height: 150px; /* Adjust image height on small screens if needed */
+    }
+
+
+}
+

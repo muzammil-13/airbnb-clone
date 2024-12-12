@@ -1,0 +1,145 @@
+/* footer.css */
+
+.footer {
+  width: 100%;
+  padding: 2rem 0; /* Consistent padding top/bottom */
+  background-color: #617245; /* Dark background */
+  color: #fff;  /* White text */
+  font-family: sans-serif; /* Default font */
+
+}
+
+.footer-content {
+  max-width: 1200px; /* Set a max-width for the container */
+  margin: 0 auto;  /* Center the content */
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align items vertically */
+  flex-wrap: wrap;  /* Allow wrapping on smaller screens */
+}
+
+
+
+.company-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* Align to the left */
+  margin-bottom: 1rem; /* Spacing on smaller screens */
+
+
+}
+
+.company-info h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+
+.company-info a { /* Style the link around the logo/company name */
+  text-decoration: none; /* Remove underline */
+  color: inherit;  /* Inherit text color from parent */
+
+}
+
+
+
+
+.footer-nav ul { /* Style the list itself */
+  list-style: none; /* Remove bullet points */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+
+}
+
+
+.footer-nav li {
+  margin: 0 1rem; /* Spacing between list items */
+
+
+}
+
+.footer-nav a {
+  text-decoration: none;
+  color: #fff; /* White link color */
+  transition: color 0.3s ease; /* Smooth transition on hover */
+}
+
+.footer-nav a:hover {
+  color: lightblue;
+}
+
+
+.footer-features {
+display: flex;
+flex-direction: column;
+align-items: flex-end;  /* Align to the right */
+text-align: right;
+margin-bottom: 1rem;  /* Spacing on smaller screens */
+
+
+}
+
+
+.footer-features .feature {
+margin-bottom: 0.5rem; /* Reduce spacing between features */
+
+}
+
+.footer-features h3 {
+margin-bottom: 0.25rem;
+font-size: 1.2rem;
+color: #fff;
+
+}
+
+.footer-features p {  /* Style feature paragraphs */
+color: #bbb;   /* Slightly lighter text color */
+font-size: 1rem;
+
+}
+
+
+
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .footer-content {
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center;  /* Center all content */
+      text-align: center;      /* Center the text */
+
+  }
+
+  .company-info,
+  .footer-nav,
+  .footer-features {
+    margin-bottom: 1.5rem; /* Increased spacing between sections */
+    width: 100%;  /* Occupy full width on small screens */
+    align-items: center;
+    text-align: center;  /* Center text in all sections */
+  }
+
+  .footer-nav ul {
+    flex-direction: column;
+    
+  }
+
+  .footer-nav li {
+      margin: 0.5rem 0; /* Vertical margin between links */
+
+  }
+
+  .footer-features {
+    align-items: center; /* Center features */
+  }
+
+
+
+
+}
+

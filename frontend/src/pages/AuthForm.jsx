@@ -1,74 +1,138 @@
 import React, { useState } from 'react';
 import '../styles/AuthForm.css';
+import { Card, CardContent, Typography, TextField, Button, Box } from '@mui/material';
 
 function AuthForm() {
-  const [isLoginMode, setIsLoginMode] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+    const [isLoginMode, setIsLoginMode] = useState(true);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    if (isLoginMode) {
-      console.log("Login with:", email, password);
-    } else {
-      console.log("Signup with:", username, email, password);
-    }
-  };
+        // Placeholder for authentication logic
+        if (isLoginMode) {
+            console.log('Login with:', email, password);
+        } else {
+            console.log('Signup with:', username, email, password);
 
-  const toggleMode = () => {
-    setIsLoginMode(!isLoginMode);
-  };
+        }
 
-  return (
-    <div className="auth-form-container"> {/* Added container class */}
-      <h2 className="auth-form-title">{isLoginMode ? 'Login' : 'Signup'}</h2>
-      <form onSubmit={handleSubmit} className="auth-form"> {/* Added form class */}
-        {!isLoginMode && (
-          <div className="form-group"> {/* Added div class */}
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-        )}
-        <div className="form-group"> {/* Added div class */}
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group"> {/* Added div class */}
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="submit-button">{/* Added button class */}
-          {isLoginMode ? 'Login' : 'Signup'}
-        </button>
-      </form>
-      <p className="toggle-mode-text"> {/* Added paragraph class */}
-        {isLoginMode ? "Don't have an account?" : "Already have an account?"}
-        <button onClick={toggleMode} className="toggle-mode-button"> {/* Added button class */}
-          {isLoginMode ? 'Signup' : 'Login'}
-        </button>
-      </p>
-    </div>
-  );
+    };
+
+
+    const toggleMode = () => {
+        setIsLoginMode(!isLoginMode);
+
+        // Clear form fields when switching modes
+        setEmail('');
+        setPassword('');
+        setUsername('');
+
+
+
+    };
+
+
+    return (
+
+        <Card variant="outlined" sx={{ maxWidth: 400, margin: '20px auto', padding: '16px' }}> {/* MUI Card */}
+            <CardContent>
+
+
+                <Typography variant="h5" component="h2" align="center" gutterBottom>
+                    {isLoginMode ? 'Login' : 'Signup'}
+                </Typography>
+
+
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+
+
+                    {!isLoginMode && (
+
+                        <TextField
+                            margin="normal"
+
+                            fullWidth
+                            id="username"
+                            label="Username"
+                            name="username"
+                            autoComplete="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+
+                        />
+
+                    )}
+                    <TextField
+                        margin="normal"
+
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus={isLoginMode}  // Autofocus only in login mode
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+
+                    />
+
+                    <TextField
+                        margin="normal"
+
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+
+                        required
+
+                    />
+
+
+                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                        {isLoginMode ? 'Login' : 'Signup'}
+
+
+                    </Button>
+
+
+                    <Typography variant="body2" align="center">
+                        {isLoginMode ? "Don't have an account?" : "Already have an account?"}{' '}
+
+
+                        <Button onClick={toggleMode} variant='text'>
+
+                            {isLoginMode ? 'Signup' : 'Login'}
+
+                        </Button>
+
+                    </Typography>
+
+
+                </Box>
+
+
+            </CardContent>
+
+        </Card>
+
+
+
+    );
+
 }
 
+
 export default AuthForm;
+
+

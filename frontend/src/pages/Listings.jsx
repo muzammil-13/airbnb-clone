@@ -1,35 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Import Link
-import Grid from '@mui/material/Grid';  // Assuming you are using Material UI
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { CircularProgress, Grid, Typography } from '@mui/material';  // Import CircularProgress and Typography
 
 
 function Listings() {
     const [listings, setListings] = useState([]);
+    const [loading, setLoading] = useState(true);  // Loading state
+    const [error, setError] = useState(null);  // Error state
+
+
 
     useEffect(() => {
-        // Fetch listings data from your API endpoint here
         const fetchListings = async () => {
             try {
-                const response = await fetch('/api/listings'); // Replace with your API endpoint
+                const response = await fetch('/api/listings');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
                 setListings(data);
+
+
             } catch (error) {
                 console.error('Error fetching listings:', error);
-                // Handle error, e.g., display an error message
+                setError(error.message); // Set the error message
+
+
+
+            } finally {
+                setLoading(false); // Set loading to false after the request completes
             }
         };
 
+
         fetchListings();
+
     }, []);
+
+    if (loading) {
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}> {/* Center the loading indicator */}
+          <CircularProgress />
+        </div>
+      );
+
+    }
+
+
+
+    if (error) {
+
+      return <Typography variant="body1" color="error" align='center'>{error}</Typography>; // Display the error message
+    }
 
 
     return (

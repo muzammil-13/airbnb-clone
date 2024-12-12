@@ -1,74 +1,83 @@
-.auth-form-popover {
-  position: absolute;
-  background-color: #617345; /* Light background for better contrast */
-  padding: 20px;
+/* authform.css */
+
+.auth-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center vertically */
+  min-height: calc(100vh - 80px); /* Adjust 80px based on header/footer height */
+  padding: 2rem;
+
+
+}
+
+
+
+.auth-form-container .MuiCard-root { /* Style the MUI Card */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15); /* Subtle shadow */
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  min-width: 300px;
-  max-width: 500px;
+
 }
 
-.auth-form-title { /* More specific title style */
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #000000; /* Darker text color */
+
+.auth-form-container .MuiCardContent-root {  /* Style the CardContent */
+
 }
 
-.form-group {
-  margin-bottom: 15px;
+
+.auth-form-container .MuiTypography-h5 { /* Style the main heading (h2) */
+  margin-bottom: 2rem; /* Increased margin */
+
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500; /* Slightly bolder label text */
-}
-
-.form-group input {
+.auth-form {
   width: 100%;
-  padding: 10px; /* Increased padding */
-  border: 1px solid #ddd; /* Lighter border */
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 1rem; /* Consistent font size */
+
+
 }
 
 
-.submit-button {
-  background-color: #617345; 
-  color: white;
-  padding: 12px 20px; /* Adjusted padding */
-  border: none;
-  border-radius: 5px; /* Slightly rounder corners */
-  cursor: pointer;
-  width: 100%;
-  margin-top: 20px;
-  font-size: 1.1rem;  /* Slightly larger font size */
-  font-weight: 500;  /* Medium weight font */
-  transition: background-color 0.3s ease; /* Smooth transition on hover */
+
+.auth-form .MuiTextField-root { /* Style the MUI TextFields */
+  margin-bottom: 1.5rem !important;  /* Override MUI default margin */
+
 }
 
-.submit-button:hover {
-  background-color: #28cc22;
+.auth-form .MuiButton-root { /* Style the MUI Buttons */
+  margin-top: 1rem;  /* Space above the button */
+  padding: 10px;
+
+
 }
 
-.toggle-mode-text {
-  margin-top: 15px;
-  text-align: center;
-  font-size: 0.9rem; /* Slightly smaller text */
-  color: #666;  /* Less prominent text color */
+
+.auth-form .MuiTypography-body2 {
+  margin-top: 1.5rem;
+
+
 }
 
-.toggle-mode-button {
-  background: none;
-  border: none;
-  color: #617345;
-  cursor: pointer;
-  padding: 0;
-  font-size: inherit;
-  text-decoration: underline;
-  margin-left: 5px; /* Small margin from text */
+
+
+.toggle-mode-text { /* Style for toggle mode paragraph */
+
 }
 
+.toggle-mode-button {  /* Style for toggle mode button */
+
+}
+
+/* Responsive Adjustments (Example) */
+@media (max-width: 600px) {
+  .auth-form-container {
+      padding: 1rem; /* Reduce padding on small screens */
+
+
+  }
+  .auth-form-container .MuiCard-root {
+      max-width: 90%; /* Card takes almost full width */
+
+
+  }
+
+}

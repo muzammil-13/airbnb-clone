@@ -37,6 +37,33 @@
   margin-bottom: 1rem;
 }
 
+.filter-icon-container { /* styles for filter icon container*/
+  background-color: rgb(244, 181, 44);
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  right: 20px; /* Adjust as needed */
+  cursor: pointer; /* Make it look clickable */
+}
+
+.chatbot-icon-container {
+  position: fixed; /* Fixed positioning */
+  bottom: 20px; /* Adjust distance from bottom */
+  right: 20px; /* Adjust distance from right */
+  background-color: #6161c5; /* Example background color */  /*Example - Customize as needed*/
+  color: white; /* Example text color */  /*Example - Customize as needed*/
+  padding: 10px;  /* Add some padding */
+  border-radius: 50%; /* Make it round */
+  cursor: pointer; /* Indicate it's clickable */
+  z-index: 1000; /* Ensure it's above other elements */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add a shadow */
+
+}
+.chatbot-icon-container .MuiSvgIcon-root{ /* Styles the icon */
+  font-size: 35px;
+
+
+}
+
 /* Content section */
 .contentContainer {
   text-align: center;

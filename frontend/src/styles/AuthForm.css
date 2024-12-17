@@ -1,83 +1,80 @@
-/* authform.css */
-
-.auth-form-container {
+.auth-container {
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center vertically */
-  min-height: calc(100vh - 80px); /* Adjust 80px based on header/footer height */
-  padding: 2rem;
-
-
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-
-
-.auth-form-container .MuiCard-root { /* Style the MUI Card */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15); /* Subtle shadow */
-  border-radius: 8px;
-
+/* Add subtle animation for form transitions */
+.MuiCard-root {
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
-.auth-form-container .MuiCardContent-root {  /* Style the CardContent */
-
+.MuiCard-root:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-
-.auth-form-container .MuiTypography-h5 { /* Style the main heading (h2) */
-  margin-bottom: 2rem; /* Increased margin */
-
+/* Style form inputs */
+.MuiTextField-root {
+  margin: 8px 0;
 }
 
-.auth-form {
-  width: 100%;
-
-
+.MuiTextField-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #1976d2;
 }
 
-
-
-.auth-form .MuiTextField-root { /* Style the MUI TextFields */
-  margin-bottom: 1.5rem !important;  /* Override MUI default margin */
-
-}
-
-.auth-form .MuiButton-root { /* Style the MUI Buttons */
-  margin-top: 1rem;  /* Space above the button */
+/* Style submit button */
+.MuiButton-contained {
+  text-transform: none;
+  font-size: 1.1rem;
   padding: 10px;
-
-
+  background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
+  box-shadow: 0 3px 5px 2px rgba(33, 203, 243, .3);
 }
 
-
-.auth-form .MuiTypography-body2 {
-  margin-top: 1.5rem;
-
-
+.MuiButton-contained:hover {
+  background: linear-gradient(45deg, #1976d2 30%, #2196f3 90%);
 }
 
-
-
-.toggle-mode-text { /* Style for toggle mode paragraph */
-
+/* Style toggle button */
+.MuiButton-text {
+  color: #1976d2;
+  font-weight: 500;
 }
 
-.toggle-mode-button {  /* Style for toggle mode button */
-
-}
-
-/* Responsive Adjustments (Example) */
+/* Responsive design */
 @media (max-width: 600px) {
-  .auth-form-container {
-      padding: 1rem; /* Reduce padding on small screens */
-
-
+  .MuiCard-root {
+      margin: 16px;
+      width: 100%;
   }
-  .auth-form-container .MuiCard-root {
-      max-width: 90%; /* Card takes almost full width */
+}
 
-
+/* Add animation for mode switching */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-10px);
   }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
 
+.MuiCardContent-root {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Error state styling */
+.MuiTextField-root.Mui-error .MuiOutlinedInput-notchedOutline {
+  border-color: #f44336;
+}
+
+/* Success state styling */
+.MuiTextField-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #4caf50;
 }

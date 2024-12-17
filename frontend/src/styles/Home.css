@@ -14,8 +14,7 @@
 }
 
 .mainContainer {
-  background: linear-gradient(var(--overlay-color), var(--overlay-color)),
-    url('/images/travel-bg.jpg') center center / cover no-repeat fixed;
+  
   will-change: transform;
   width: 100%;
   min-height: 100vh;

@@ -5,6 +5,7 @@
 .App {
   min-height: 100vh;
   width: 100%;
+  background-color: #3bef71;
 }
 
 .mainContainer {

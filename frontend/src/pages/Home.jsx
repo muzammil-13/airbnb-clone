@@ -36,19 +36,19 @@ const Home = () => {  // Removed unused props
                 <div className="locationsGrid"> {/* Better naming convention */}
                     <LocationCard
                         image="/images/960px-Kumarkom.jpg"
-                        title="Kerala Backwaters-1"
+                        title="Kerala Backwaters"
                         description="Experience the serene backwaters of Kerala"
                         price={299}
                     />
                     <LocationCard
                         image="/images/960px-Kumarkom.jpg"
-                        title="Kerala Backwaters-2"
+                        title="Kerala Backwaters"
                         description="Experience the serene backwaters of Kerala"
                         price={299}
                     />
                     <LocationCard
                         image="/images/960px-Kumarkom.jpg"
-                        title="Kerala Backwaters-3"
+                        title="Kerala Backwaters"
                         description="Experience the serene backwaters of Kerala"
                         price={299}
                     />

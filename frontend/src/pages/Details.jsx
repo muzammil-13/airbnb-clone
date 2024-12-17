@@ -1,12 +1,11 @@
 import React from 'react';
 import '../styles/Details.css'
 import { useParams, Link } from 'react-router-dom'; // Import Link
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-
+import Bookings from './Bookings';
 
 const Details = () => {
 
@@ -29,9 +28,9 @@ const Details = () => {
 
 
   return (
-    <div style={{padding: '20px'}}> {/* Added padding for better visuals */}
+    <div className="details-container">
           <h1>Details for {title}</h1>
-        <Card sx={{ maxWidth: 600, margin: '0 auto' }}> {/* Center the card */}
+        <Card sx={{ maxWidth: 600}}> {/* Center the card */}
             <CardMedia
                 component="img"
                 height="300" // Set a fixed height or responsive height as needed.
@@ -48,15 +47,10 @@ const Details = () => {
                 <Typography variant="body1" paragraph>
                     {location.details || location.description /* Prioritize "details" if available */}
                 </Typography>
-
-                <Link to={`/bookings/${title}`}> {/* Use Link to create the navigation */}
-                <Button variant="contained">Book Now</Button>
-            </Link>
-
             </CardContent>
 
         </Card>
-
+<Bookings/>
     </div>
   );
 };

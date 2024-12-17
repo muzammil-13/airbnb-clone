@@ -4,7 +4,7 @@
     align-items: center; /* Center content horizontally */
     padding: 20px;       /* Add some padding around the content */
     min-height: calc(100vh - 64px);  /* Ensure content takes up full viewport height (adjust 64px if your header/footer is different) */
-
+    gap: 20px;             /* Add some space between elements (adjust as needed) */
 }
 
 .details-card {
@@ -74,4 +74,16 @@
     .details-card .MuiCardMedia-root {
         height: 300px; /* Adjust image height for smaller screens */
     }
+}
+
+@media (max-width: 767px) {  /* Mobile or smaller screens */
+    .details-container {
+        flex-direction: column; /* Stack vertically on small screens */
+    }
+
+    .details-container > *{
+        width: 100%;  /* Full-width elements on small screens */
+        box-sizing: border-box;
+    }
+
 }

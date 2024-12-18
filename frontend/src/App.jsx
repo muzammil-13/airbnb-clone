@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import './styles/App.css';
 import { useEffect, useState } from 'react';
+import Header from './components/Header'
+import Footer from './components/Footer'
 import Home from './pages/Home';
 import AuthForm from './pages/AuthForm';
 import Details from './pages/Details'; // Import the Details component
@@ -50,8 +52,9 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App">  
       <BrowserRouter>
+      <Header />
         <Routes>
           <Route path="/" element={<Home user={user} />} />
           <Route path="/listings" element={<Listings />} /> {/* Route for Listings page */}
@@ -63,7 +66,7 @@ function App() {
              <Route path="*" element={<Navigate to="/" />} />
              <Route path="/bookings/:title" element={<Bookings />} />
         </Routes>
-
+        <Footer/>
       </BrowserRouter>
     </div>
   );

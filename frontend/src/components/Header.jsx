@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AuthForm from '../pages/AuthForm';
 import '../styles/Header.css';
-import {FaMagnifyingGlass} from 'react-icons/fa6';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
 
 function Header() {
   const [showAuthForm, setShowAuthForm] = useState(false);

@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/AuthForm.css';
 import { Card, CardContent, Typography, TextField, Button, Box } from '@mui/material';
+import { IoMdLogIn } from "react-icons/io";
+import { SiGnuprivacyguard } from "react-icons/si";
+import { API_URL } from '../config';
+
 
 function AuthForm() {
+    const navigate = useNavigate();
     const [isLoginMode, setIsLoginMode] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,34 +22,59 @@ function AuthForm() {
         setErrorMessage('');
     
         try {
-            const endpoint = isLoginMode ? '/api/auth/login' : '/api/auth/register';
+            // Construct the full URL properly
+            const url = `${API_URL}/api/auth/${isLoginMode ? 'login' : 'register'}`;
+            
             const payload = isLoginMode
                 ? { email, password }
-                : { firstName: username, lastName: username, email, password }; // Adjust as per your schema
-    
-            const response = await fetch(endpoint, {
+                : { 
+                    firstName: username.split(' ')[0] || username, 
+                    lastName: username.split(' ')[1] || username,
+                    email, 
+                    password 
+                };
+
+            console.log('Sending request to:', url); // Debug log
+            
+            const response = await fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(payload),
             });
     
-            // Check if response is JSON
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                const data = await response.json();
+            const data = await response.json();
+            console.log('Response:', data); // Debug log
     
-                if (!response.ok) {
-                    throw new Error(data.message || 'Something went wrong');
-                }
-    
-                console.log('Success:', data);
-                // Handle success, e.g., store token and redirect
-            } else {
-                throw new Error('Invalid response from server');
+            if (!response.ok) {
+                throw new Error(data.message || 'Authentication failed');
             }
+
+            // Store token
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+            } else {
+                console.error('No token received');
+                throw new Error('No token received from server');
+            }
+            
+            // Store user info if returned
+            if (data.user) {
+                localStorage.setItem('user', JSON.stringify(data.user));
+            }
+
+            // Clear form
+            setEmail('');
+            setPassword('');
+            setUsername('');
+
+            // Redirect to home page
+            navigate('/');
+            
         } catch (error) {
             console.error('Authentication error:', error);
-            setErrorMessage(error.message);
+            setErrorMessage(error.message || 'Authentication failed. Please try again.');
         } finally {
             setIsLoading(false);
         }
@@ -62,10 +93,27 @@ function AuthForm() {
         <div className="auth-container">
             <Card variant="outlined" sx={{ maxWidth: 400, padding: '16px' }}>
                 <CardContent>
-                    <Typography variant="h5" component="h2" align="center" gutterBottom>
+                    <Typography 
+                        variant="h5" 
+                        component="h2" 
+                        align="center" 
+                        gutterBottom 
+                        sx={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'center' 
+                        }}
+                    >
+                        {!isLoginMode && <SiGnuprivacyguard style={{ marginRight: '8px' }} />}
+                        {isLoginMode && <IoMdLogIn style={{ marginRight: '8px' }} />}
                         {isLoginMode ? 'Login' : 'Signup'}
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box 
+                        component="form" 
+                        onSubmit={handleSubmit} 
+                        noValidate 
+                        sx={{ mt: 1 }}
+                    >
                         {!isLoginMode && (
                             <TextField
                                 margin="normal"
@@ -104,7 +152,12 @@ function AuthForm() {
                         />
 
                         {errorMessage && (
-                            <Typography variant="body2" color="error" align="center">
+                            <Typography 
+                                variant="body2" 
+                                color="error" 
+                                align="center" 
+                                sx={{ mt: 2 }}
+                            >
                                 {errorMessage}
                             </Typography>
                         )}

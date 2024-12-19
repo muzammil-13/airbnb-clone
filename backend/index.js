@@ -7,31 +7,24 @@ require("dotenv").config();
 
 const app = express(); 
 
-//middleware 
 app.get('/', (req, res) => {
   res.send("Hello, world!");   
 });
+
+//middleware 
 app.use(express.json()); 
 app.use(cors( 
 { 
-    origin: process.env.CLIENT_URL, 
+  origin: process.env.CLIENT_URL,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 } 
 )); 
 
 
 //routes 
 app.use("/api/auth",authRoutes );
-
-// fetch('http://localhost:3000/') // Use the correct URL here
-//   .then(response => {
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-//     return response.json();
-//   })
-//   .then(data => console.log(data))
-//   .catch(error => console.error("Error fetching listings:", error));
 
 
 //Database connection 
@@ -43,3 +36,12 @@ console.log('MongoDB connection error:', err);
 app.listen(process.env.PORT, () => { 
 console.log(`Server is running on port ${process.env.PORT}`); 
 }); 
+
+
+
+// dummyJSON.com data check
+// Could be GET or POST/PUT/PATCH/DELETE
+fetch('https://dummyjson.com/test')
+.then(res => res.json())
+.then(console.log);
+/* { status: 'ok', method: 'GET' } */

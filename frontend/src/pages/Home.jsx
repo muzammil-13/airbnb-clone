@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Import useEffect
+import Listings from './Listings';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LocationCard from '../components/cards/LocationCard';
 import { IoFilterCircle } from "react-icons/io5";
@@ -11,9 +13,15 @@ const Home = () => {
     const navigate = useNavigate();
     const [showChatbot, setShowChatbot] = useState(false);
 
+    const [listings, setListings] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
     const toggleChatbot = () => {
         setShowChatbot(!showChatbot);
     };
+
+    
 
     return (
         <div className="main">
@@ -70,6 +78,13 @@ const Home = () => {
                         description="Experience the serene backwaters of Kerala"
                         price={299}
                     />
+                    {loading ? (
+                    <h3>Loading listings...</h3>
+                        ) : error ? (
+                    <p>Error: {error}</p>
+                        ) : (
+                    <Listings listings={listings} />
+                        )}
                 </div>
             </div>
             {showChatbot && <Chatbot />}

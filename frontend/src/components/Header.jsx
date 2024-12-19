@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AuthForm from '../pages/AuthForm';
 import '../styles/Header.css';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { TbHomeSearch } from "react-icons/tb";
 
 function Header() {
   const [showAuthForm, setShowAuthForm] = useState(false);
@@ -34,11 +34,11 @@ function Header() {
       </div>
       <div className="search-bar">
         <input type="text" placeholder="Search anything..." className='search-input'/>
-        <FaMagnifyingGlass className="search-icon"/>
+        <TbHomeSearch className="search-icon"/>
       </div>
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
-        {/* <li><Link to="/listings">View Listings</Link></li> */}
+        <li><Link to="/listings">View Listings</Link></li>
         <li><Link to="#">About</Link></li>
         <li><Link to="#">Contact</Link></li>
         <li>

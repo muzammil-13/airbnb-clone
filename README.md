@@ -139,7 +139,7 @@ project/
 
 [Demo: Landing page]
 
-![1734578020761](image/README/1734578020761.png)
+![1734579812004](image/README/1734579812004.png)
 
 [Demo: Authentication]
 

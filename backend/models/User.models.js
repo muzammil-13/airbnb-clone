@@ -48,7 +48,11 @@ next();
 }); 
 }); 
 //method to compare password 
-userSchema.methods.comparePassword = function(password){ 
-return bcrypt.compare(password, this.password); 
-} 
+userSchema.methods.comparePassword = async function(password) {
+    try {
+        return await bcrypt.compare(password, this.password);
+    } catch (error) {
+        throw error;
+    }
+}
 module.exports = mongoose.model("User", userSchema); 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CircularProgress, Grid, Typography } from '@mui/material';  // Import CircularProgress and Typography
-
+import { Button, CardActions,Card,CardMedia,CardContent, CircularProgress, Grid, Typography } from '@mui/material';  // Import CircularProgress and Typography
+import axios from 'axios';
 
 function Listings() {
     const [listings, setListings] = useState([]);
@@ -36,6 +36,26 @@ function Listings() {
         fetchListings();
 
     }, []);
+
+    // dummyjson data fetching
+        useEffect(() => {
+            const fetchListings = async () => {
+              try {
+                const response = await fetch('https://dummyjson.com/products?limit=6');
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setListings(data.products); 
+              } catch (error) {
+                setError(error.message); // Set error message if the fetch fails
+              } finally {
+                setLoading(false); // Set loading to false regardless of success or failure
+              }
+            };
+
+            fetchListings();
+        }, []);
 
     if (loading) {
       return (

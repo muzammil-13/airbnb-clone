@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LocationCard from '../components/cards/LocationCard';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import ChatIcon from '@mui/icons-material/Chat'; // Use ChatIcon
+import { IoFilterCircle } from "react-icons/io5";
+import { SiChatbot } from "react-icons/si";
 import Chatbot from '../components/Chatbot';
 import '../styles/Home.css';
 
 
-const Home = () => {  // Removed unused props
+const Home = () => { 
     const navigate = useNavigate();
     const [showChatbot, setShowChatbot] = useState(false);
 
@@ -20,10 +20,10 @@ const Home = () => {  // Removed unused props
             <div className="mainContainer">
                 <div className="titleContainer">
                     <div className="filterIconContainer"> {/* Improved naming */}
-                        <FilterListIcon />
+                    <IoFilterCircle />
                     </div>
                     <div className="chatIconContainer" onClick={toggleChatbot}> {/* Clearer naming */}
-                        <ChatIcon /> {/* More appropriate icon */}
+                    <SiChatbot />
                     </div>
                     <h1>Welcome to SANCHARAM Travels</h1>
                 </div>

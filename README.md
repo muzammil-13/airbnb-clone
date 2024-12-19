@@ -143,7 +143,6 @@ project/
 
 [Demo: Authentication]
 
-
 ---
 
 ## Future Enhancements
@@ -151,6 +150,10 @@ project/
 - **Payment Integration**: Add a payment gateway for bookings.
 - **Property Reviews**: Allow users to leave reviews and ratings.
 - **Admin Dashboard**: Manage property listings and bookings.
+
+[Demo: Future implemention]
+
+![1734529435931](image/README/1734529435931.png)
 
 ---
 

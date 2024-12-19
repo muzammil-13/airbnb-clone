@@ -1,31 +1,45 @@
-require('dotenv').config();
+const express = require("express"); 
+const mongoose = require("mongoose"); 
+const cors = require("cors"); 
+const authRoutes  = require("./Routes/auth.routes") 
 
-const express=require('express')
-const app=express()
-const env=process.env;
-const mongoose=require('mongoose')
-const cors = require('cors'); // Import cors
-const bodyParser = require('body-parser')
+require("dotenv").config(); 
 
+const app = express(); 
 
-mongoose.connect(env.MONG_URL)
-.then(()=>{
-    console.log("Connected to MongoDB")
-})
-.catch((err)=>console.log("Error occurred:",err));
-
-app.use(cors({
-    origin: 'http://localhost:3000', // Only allow requests from this origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
-    credentials: true // Allow credentials (cookies, authorization headers)
-}));
-app.use(bodyParser.json()) //add this line
-
-// Your API routes go here
-app.get('/api/test', (req, res) => {
-    res.send('Hello from the backend!'); // Simple test route
-  });
-
-app.listen(env.PORT,()=>{
-    console.log("Server is running on port:", env.port);
+//middleware 
+app.get('/', (req, res) => {
+  res.send("Hello, world!");   
 });
+app.use(express.json()); 
+app.use(cors( 
+{ 
+    origin: process.env.CLIENT_URL, 
+    credentials: true,
+} 
+)); 
+
+
+//routes 
+app.use("/api/auth",authRoutes );
+
+// fetch('http://localhost:3000/') // Use the correct URL here
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+//     return response.json();
+//   })
+//   .then(data => console.log(data))
+//   .catch(error => console.error("Error fetching listings:", error));
+
+
+//Database connection 
+mongoose.connect(process.env.MONGODB_URI).then(() => { 
+console.log("Connected to MongoDB"); 
+}).catch((err) => { 
+console.log('MongoDB connection error:', err); 
+}); 
+app.listen(process.env.PORT, () => { 
+console.log(`Server is running on port ${process.env.PORT}`); 
+}); 

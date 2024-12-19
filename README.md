@@ -159,7 +159,7 @@ Signup:
 - **Property Reviews**: Allow users to leave reviews and ratings.
 - **Admin Dashboard**: Manage property listings and bookings.
 
-[Demo: Future implemention]
+[Demo: Tech Architecture with Future implementions]
 
 ![1734529435931](image/README/1734529435931.png)
 

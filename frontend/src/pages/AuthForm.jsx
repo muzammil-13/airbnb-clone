@@ -22,7 +22,6 @@ function AuthForm() {
         setErrorMessage('');
     
         try {
-            // Construct the full URL properly
             const url = `${API_URL}/api/auth/${isLoginMode ? 'login' : 'register'}`;
             
             const payload = isLoginMode

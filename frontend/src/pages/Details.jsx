@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Details.css'
-import { useParams, Link } from 'react-router-dom'; // Import Link
+import { useParams, Link } from 'react-router-dom'; 
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -20,7 +20,13 @@ const Details = () => {
         details: "Embark on a tranquil journey through the intricate network of canals, lakes, and lagoons. Witness the breathtaking beauty of nature.  Indulge in delicious Kerala cuisine."
 
     },
-    // Add more locations here...
+    "Kerala House boating 1": {
+      image: "/images/960px-Kumarkom.jpg",
+      description: "Experience the serene backwaters of Kerala, enjoy houseboat stays, and explore the lush greenery.",
+      price: 299,
+        details: "Embark on a tranquil journey through the intricate network of canals, lakes, and lagoons. Witness the breathtaking beauty of nature.  Indulge in delicious Kerala cuisine."
+
+    }
   };
 
   const location = locationData[title] || {}; // Get location data, handle if not found
@@ -28,9 +34,10 @@ const Details = () => {
 
 
   return (
-    <div className="details-container">
+    <div className="details-container" style={{ display: 'flex' }}>
+            <div style={{ flex: 1 }}>
           <h1>Details for {title}</h1>
-        <Card sx={{ maxWidth: 600}}> {/* Center the card */}
+        <Card sx={{ maxWidth: 600}}> 
             <CardMedia
                 component="img"
                 height="300" // Set a fixed height or responsive height as needed.
@@ -49,8 +56,11 @@ const Details = () => {
                 </Typography>
             </CardContent>
 
-        </Card>
-<Bookings/>
+            </Card>
+      </div>
+      <div style={{ flex: 1 }}> {/* Bookings */}
+        <Bookings />
+      </div>
     </div>
   );
 };

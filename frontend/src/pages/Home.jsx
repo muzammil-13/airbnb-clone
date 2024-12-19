@@ -30,9 +30,26 @@ const Home = () => {
                     <div className="filterIconContainer"> {/* Improved naming */}
                     <IoFilterCircle />
                     </div>
-                    <div className="chatIconContainer" onClick={toggleChatbot}> {/* Clearer naming */}
-                    <SiChatbot />
-                    </div>
+
+                    <div 
+    className="chatIconContainer"  // Keep only necessary class
+    onClick={toggleChatbot} 
+    style={{
+        position: 'fixed',
+        bottom: '20px',       
+        right: '20px',       
+        zIndex: 100,           
+        cursor: 'pointer',   
+        // backgroundColor: '#22da46',
+        padding: '10px', 
+        borderRadius: '50%'
+    }}
+>
+    <SiChatbot />
+</div>
+
+
+
                     <h1>Welcome to SANCHARAM Travels</h1>
                 </div>
 

@@ -5,8 +5,7 @@
     right: 10px;
     width: 300px;
     height: 400px;
-    background: linear-gradient(var(--overlay-color), var(--overlay-color)),
-    url('/images/chatbot-bg.jpg') center center / cover no-repeat fixed;
+    background: url('/images/chatbot-bg.jpg') center center / cover no-repeat;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;

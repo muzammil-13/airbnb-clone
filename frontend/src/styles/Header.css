@@ -1,4 +1,3 @@
-/* Base styles for small screens (mobile-first approach) */
 .navbar {
   display: flex;
   flex-direction: column;
@@ -60,16 +59,14 @@
   width: 100%;
   padding: 0.5rem;
   border-radius: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
   height: 40px;
   padding-left: 10px;
   font-size: 16px;
-  color: #333;
 }
 
 .search-icon {
@@ -77,8 +74,8 @@
   font-size: 1.5rem;
   cursor: pointer;
   position: absolute;
-  top: 50%;          /* Vertically center the icon */
-  right: 20px;       /* Position to the right edge */
+  top: 50%;          
+  right: 20px;       
   transform: translateY(-50%);
 }
 

@@ -33,12 +33,12 @@ function Header() {
         </Link>
       </div>
       <div className="search-bar">
-        <input type="text" placeholder="Search anything..." className='search-input'/>
+        <input type="text" placeholder="Search your Home ;)" className='search-input'/>
         <TbHomeSearch className="search-icon"/>
       </div>
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/listings">View Listings</Link></li>
+        {/* <li><Link to="/listings">View Listings</Link></li> */}
         <li><Link to="#">About</Link></li>
         <li><Link to="#">Contact</Link></li>
         <li>

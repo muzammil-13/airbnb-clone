@@ -10,112 +10,128 @@
   align-items: center;
   min-height: 100vh;
   padding: 0;
-  box-sizing: border-box; /* Include padding in element's total width and height */
-}
-
-.mainContainer {
-  
-  will-change: transform;
-  width: 100%;
-  min-height: 100vh;
-  margin: 0;
-  padding: var(--main-padding);  /* Or set a specific padding value */
   box-sizing: border-box;
-  transform: translateZ(0);
-  position:relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-}
-
-.main {
   position: relative;
-  z-index: 1;
-  background: transparent;
+  z-index: 1; /* Ensure main content is above background elements */
+  background: transparent; /* For overlay effects */
 }
 
+
+/* Main Content Container */
+.mainContainer {
+  width: 100%;
+  min-height: 100vh;  /* Ensure it takes up full viewport height */
+  margin: 0;
+  padding: var(--main-padding);
+  box-sizing: border-box;
+  position: relative; /* Needed for absolute positioning of children */
+  z-index: -1; /* Place behind the main content */
+
+
+}
+
+/* Title and Icons Container */
 .titleContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem; /* Reduce margin on smaller screens */
-  width: 100%; /* Ensure full width */
-  flex-wrap: wrap; /* Allow wrapping if necessary */
+  margin-bottom: 1rem;
+  width: 100%;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  z-index: 2;  /* Ensure above mainContainer if needed*/
+
 }
 
-.filterIconContainer, 
+
+
+.filterIconContainer,
 .chatIconContainer {
   cursor: pointer;
-  font-size: 1.5rem; /* Smaller icon size on mobile */
-  margin-bottom: 0.5rem; /* Add margin for wrapping */
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem; /* Add margin for better spacing on mobile when wrapped */
+
 }
+
+
+/* Floating Chatbot Icon (No Nested Div) */
+.chatIconContainer {  /* Removed .floating-chatbot, styling applied here directly */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100; /* Ensure it stays on top */
+  /* background-color: #22da46; */
+  padding: 10px;
+  border-radius: 50%;
+
+}
+
 
 .contentContainer {
   text-align: center;
   margin-bottom: 2rem;
   width: 100%;
+
 }
 
 .contentContainer h2 {
-  font-size: 1.5rem; /* Adjust sizes as needed for different screen sizes */
+  font-size: 1.5rem;
 }
+
 .contentContainer p {
   font-size: 1rem;
 }
 
 .locationsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Smaller min width */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 1rem;
   width: 100%;
 }
 
-/* Media queries for specific breakpoints */
 
-/* Mobile First (default - already set) */
+/* Media Queries (adjust breakpoints as needed) */
+@media (min-width: 768px) {  /* Tablet and larger */
 
-/* Tablet and larger screens (768px and above) */
-@media (min-width: 768px) {
   .main {
-    padding: 2rem; /* Larger padding on bigger screens */
+    padding: 2rem;
   }
 
   .filterIconContainer,
   .chatIconContainer {
-    font-size: 2rem; /* Larger icons */
-    margin-bottom: 0; /* Remove margin */
+    font-size: 2rem;
+    margin-bottom: 0;
   }
+
 
   .contentContainer h2 {
     font-size: 2rem;
   }
-
   .contentContainer p {
     font-size: 1.25rem;
   }
 
   .locationsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Larger grid items */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 }
 
-/* Large Screens (1200px and above) */
-@media (min-width: 1200px) {
+
+
+@media (min-width: 1200px) { /* Larger screens */
   .titleContainer {
     margin-bottom: 2rem;
   }
 
+
   .contentContainer h2 {
     font-size: 2.5rem;
   }
-
   .contentContainer p {
     font-size: 1.5rem;
   }
 
   .locationsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Even larger grid items */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   }
+
 }

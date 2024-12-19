@@ -1,10 +1,17 @@
 .details-container {
+    padding: 0% 10% 0% 10%;
     display: flex;
     flex-direction: column;
     align-items: center; /* Center content horizontally */
     padding: 20px;       /* Add some padding around the content */
     min-height: calc(100vh - 64px);  /* Ensure content takes up full viewport height (adjust 64px if your header/footer is different) */
     gap: 20px;             /* Add some space between elements (adjust as needed) */
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .details-card {

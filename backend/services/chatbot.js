@@ -10,6 +10,7 @@ const port = 5000;
 
 // Sample FAQ data for matching
 const faqData = {
+  'hi':'hi user',
   'what is your name?': 'I am your travel assistant bot.',
   'where can I go on vacation?': 'You can visit the beautiful destinations listed on our website.',
   'how can I book a tour?': 'Visit our booking page to select your desired destination and schedule.',

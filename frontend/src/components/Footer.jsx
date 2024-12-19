@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="company-info">
           <Link to="/" aria-label="Home"> {/* Added aria-label */}
-            {/* Ideally, replace this with your logo as an <img> tag  */}
+          {/* <img src="/images/SANCHARAM-Travels-Logo.png" alt="Brand Logo" className="logo" style={{width:'10vh',height:'auto'}}/> */}
            <h1>SANCHARAM</h1> 
           </Link>
           <p>&copy; {currentYear} SANCHARAM Travels. All rights reserved.</p>

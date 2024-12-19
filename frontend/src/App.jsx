@@ -33,7 +33,7 @@ function App() {
     };
 
     fetchUser();
-  }, []); // Empty dependency array ensures this runs only once
+  }, []); 
 
 
   useEffect(() => {
@@ -57,7 +57,7 @@ function App() {
       <Header />
         <Routes>
           <Route path="/" element={<Home user={user} />} />
-          <Route path="/listings" element={<Listings />} /> {/* Route for Listings page */}
+          <Route path="/listings" element={<Listings />} />
           <Route path="/details/:title" element={<Details />} />
           <Route
             path="/AuthForm"

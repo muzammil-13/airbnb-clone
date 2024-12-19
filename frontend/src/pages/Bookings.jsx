@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/Bookings.css';
 import { useParams, useNavigate } from 'react-router-dom'; // Import useParams and useNavigate
 import axios from 'axios'; // For making API requests
 import { TextField, Button, Container, Typography, Box, Grid } from '@mui/material';
@@ -13,8 +14,8 @@ const Bookings = () => {
         guests: 1,
         checkIn: '',
         checkOut: '',
-        locationTitle: title,  // Initialize with location title from route
-        price: 0  // Set default price or retrieve it based on title if dynamic pricing is needed.
+        locationTitle: title, 
+        price: 0  
     });
 
 
@@ -22,12 +23,10 @@ const Bookings = () => {
 
 
     useEffect(() => {
-      // Fetch the location details (replace with your actual API endpoint)
         axios.get(`/api/locations/${title}`)
             .then(response => {
                 setLocation(response.data);
 
-                //Update the price in the booking details based on the fetched location data
                 setBookingDetails(prevDetails => ({ ...prevDetails, price: response.data.price }));
 
             })
@@ -72,7 +71,7 @@ const Bookings = () => {
 
 
     return (
-      <div className='main'>
+      <div className='main-booking'>
         <Container maxWidth="sm">
             <Typography variant="h4" align="center" gutterBottom>
                 Book {title}

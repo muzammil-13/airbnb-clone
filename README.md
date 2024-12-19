@@ -6,7 +6,7 @@ The Airbnb Clone Travel Website is a full-stack web application developed as par
 
 ---
 
-## Table of Contents
+## Table of ontents
 
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -139,9 +139,17 @@ project/
 
 [Demo: Landing page]
 
-![1733724005734](image/README/1733724005734.png)
+![1734578020761](image/README/1734578020761.png)
 
 [Demo: Authentication]
+
+Login:
+
+![1734579316511](image/README/1734579316511.png "login component")
+
+Signup:
+
+![1734579341425](image/README/1734579341425.png)
 
 ---
 

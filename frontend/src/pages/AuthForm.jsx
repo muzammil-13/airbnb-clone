@@ -4,6 +4,7 @@ import '../styles/AuthForm.css';
 import { Card, CardContent, Typography, TextField, Button, Box } from '@mui/material';
 import { IoMdLogIn } from "react-icons/io";
 import { SiGnuprivacyguard } from "react-icons/si";
+import { MdOutlineSwitchAccount } from "react-icons/md"; // Import switch account icon
 import { API_URL } from '../config';
 
 
@@ -88,6 +89,10 @@ function AuthForm() {
         setErrorMessage('');
     };
 
+    const handleHostSwitch = () => {
+        navigate('/host'); // Navigate to the host page
+    };
+
     return (
         <div className="auth-container">
             <Card variant="outlined" sx={{ maxWidth: 400, padding: '16px' }}>
@@ -169,6 +174,15 @@ function AuthForm() {
                             disabled={isLoading}
                         >
                             {isLoading ? 'Processing...' : isLoginMode ? 'Login' : 'Signup'}
+                        </Button>
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            sx={{ mb: 2 }}
+                            startIcon={<MdOutlineSwitchAccount />}
+                            onClick={handleHostSwitch}
+                        >
+                            Switch to Host
                         </Button>
                         <Typography variant="body2" align="center">
                             {isLoginMode ? "Don't have an account?" : "Already have an account?"}{' '}

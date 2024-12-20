@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/AuthForm.css';
 import { Card, CardContent, Typography, TextField, Button, Box, CircularProgress } from '@mui/material';
 import { IoMdLogIn } from "react-icons/io";
 import { SiGnuprivacyguard } from "react-icons/si";
-import { MdOutlineSwitchAccount } from "react-icons/md"; // Import switch account icon
+import { MdOutlineSwitchAccount } from "react-icons/md";
 import { API_URL } from '../config';
 
 function AuthForm() {
@@ -16,8 +16,30 @@ function AuthForm() {
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const validateForm = () => {
+        if (!email || !password || (!isLoginMode && !username)) {
+            setErrorMessage('Please fill in all fields');
+            return false;
+        }
+        if (!email.includes('@')) {
+            setErrorMessage('Please enter a valid email');
+            return false;
+        }
+        if (!isLoginMode && !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+            setErrorMessage('Password must contain at least 8 characters, including letters and numbers');
+            return false;
+        }
+        return true;
+    };
+
+    const showSuccessMessage = () => {
+        setErrorMessage('');
+        setTimeout(() => navigate('/'), 1000);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validateForm()) return;
         setIsLoading(true);
         setErrorMessage('');
 
@@ -29,36 +51,35 @@ function AuthForm() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(payload),
             });
 
             const data = await response.json();
 
+            if (response.status === 401) {
+                setErrorMessage(isLoginMode ? 'Invalid email or password' : 'Email already exists');
+                return;
+            }
+
             if (!response.ok) {
                 throw new Error(data.message || 'Something went wrong');
             }
 
-            // Handle successful login/signup
-            navigate('/');
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            showSuccessMessage();
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Auth error:', error);
             setErrorMessage(error.message);
-
-            // Fallback to local storage
-            if (error.message.includes('Failed to fetch')) {
-                localStorage.setItem('authData', JSON.stringify(payload));
-                setErrorMessage('MongoDB is unresponsive. Data stored locally.');
-            } else if (error.message.includes('Internal Server Error')) {
-                setErrorMessage('Server error. Please try again later.');
-            }
         } finally {
             setIsLoading(false);
         }
     };
 
     const handleHostSwitch = () => {
-        navigate('/host'); // Navigate to the host page
+        navigate('/');
     };
 
     return (
@@ -78,7 +99,7 @@ function AuthForm() {
                     >
                         {isLoginMode ? 'Login' : 'Sign Up'}
                     </Typography>
-                    <form onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <form onSubmit={handleSubmit} noValidate style={{ marginTop: '8px'}}>
                         {!isLoginMode && (
                             <TextField
                                 margin="normal"

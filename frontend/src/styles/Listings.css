@@ -1,91 +1,81 @@
-/* Listings Page Styles */
+/* Basic styles for the Listings page */
 
-.listings-container {
-    padding: 20px;
-    /* Add any other container styles as needed */
+.listings-page {  /* You can add a listings-page class to the main container in Listings.jsx */
+    padding: 20px; /* Add padding around the content */
+    max-width: 1200px; /* Set a max-width for better readability on larger screens */
+    margin: 0 auto; /* Center the content on the page */
+}
+
+/* Styles for the grid container */
+.MuiGrid-container { /* Targets Material UI Grid container */
+    margin-top: 20px; /* Adds spacing above the grid */
 }
 
 
-.listing-grid {  /* Style the Material UI Grid */
-    background-color: #666;
 
-}
+/* Styles for each listing card */
 
-
-.listing-card {
+.MuiCard-root {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transitions on hover */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);  /* Subtle box shadow */
-    border-radius: 8px;      /* Rounded corners */
-    transition: transform 0.2s ease; /* Smooth hover effect */
-    overflow: hidden;
-
-
 }
 
-.listing-card:hover {
-    transform: translateY(-5px); /* Lift the card slightly on hover */
-}
-
-.listing-card .MuiCardMedia-root { /* Image inside the card */
-  height: 200px; /* Set a fixed height, or use 'auto' and max-height for responsive height based on image */
-  object-fit: cover; /* Cover the entire card area */
-}
-
-
-.listing-card .MuiCardContent-root {
-    padding: 16px; /* Adjust padding as needed */
-}
-
-
-.listing-card .MuiTypography-h5 { /* Listing title */
-  margin-bottom: 8px;
-  font-weight: 600; /* Make title slightly bolder */
-}
-
-.listing-card .MuiTypography-h5 a { /* Style the Link component */
-  text-decoration: none;  /* Remove underline from link */
-  color: inherit;  /* Inherit text color */
-}
-
-
-
-.listing-card .MuiTypography-body2 { /* Listing description */
-    margin-bottom: 12px;
-    color: #666; /* Slightly darker text color */
-
-}
-
-.listing-card .MuiTypography-h6 { /* Listing Price */
-    margin-bottom: 16px;
-    font-weight: 500; /* Slightly bolder */
+.MuiCard-root:hover {
+    transform: translateY(-5px); /* Lift up slightly on hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); /* Increase box shadow on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
 
 }
 
 
+.MuiCardMedia-root { /* Styles the image */
+  height: 200px; /* Adjust image height as needed */
+  object-fit: cover; /* Make sure the image covers the entire area */
+}
 
-.listing-card .MuiCardActions-root {  /* "View Details" button container */
-    padding: 8px 16px; /* Adjust padding as needed */
-    display: flex;
-    justify-content: flex-end; /* Align button to the right */
+.MuiCardContent-root { /* Style the card content (title, description, price) */
+  padding: 16px;   /* Add some padding inside the card */
+
 }
 
 
-.listing-card .MuiButton-root {  /* "View Details" button */
-    /* Style the button as needed (background color, etc.) */
+.MuiCardActions-root { /* Style card actions (buttons) */
+  padding: 16px; /* Add padding */
+  justify-content: flex-end;  /* Align buttons to right */
 
 }
 
 
-
-/* Responsive adjustments */
+/* Responsive design for cards */
 @media (max-width: 600px) {
-    .listing-grid {
-        /* Adjust Grid spacing or other properties for small screens */
+  .MuiGrid-item { /* On smaller screens, cards take full width */
+    width: 100%;
+  }
+}
 
-    }
-    .listing-card .MuiCardMedia-root {
-        height: 150px; /* Adjust image height on small screens if needed */
-    }
 
+.MuiCircularProgress-root { /* Styles loading indicator */
+    display: block;
+    margin: 20px auto; /* Center the loading indicator horizontally */
 
 }
 
+
+.card {
+  max-width: 345px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #f5f5f5;
+}
+
+.card-media {
+  height: 140px;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-actions {
+  padding: 8px 16px;
+}

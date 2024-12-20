@@ -1,0 +1,79 @@
+.contact-page {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center; /* Horizontally center the container */
+    align-items: center; /* Vertically center the container */
+    min-height: calc(100vh - 80px); /* Adjust min-height as needed */
+    background-color: #f8f8f8;
+    flex-direction: column;
+
+}
+
+.contact-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    max-width: 600px; /* Adjust max-width as needed */
+    width: 90%; /* Make it responsive */
+}
+
+.contact-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+textarea {
+    height: 150px;
+    resize: vertical; /* Allow vertical resizing only */
+}
+
+.submit-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease; /* Smooth background transition */
+    width: 100%; /* Make button take full width */
+}
+
+
+.submit-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+
+
+/* Thank you message styles */
+.thank-you-message {
+    text-align: center; /* Center the message */
+    margin-top: 20px; /* Add top margin */
+    color: green;       /* Green success color */
+
+}

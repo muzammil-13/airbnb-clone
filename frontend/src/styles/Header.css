@@ -70,7 +70,7 @@
 }
 
 .search-icon {
-  color: #000000;
+  color: #ffffff;
   font-size: 1.5rem;
   cursor: pointer;
   position: absolute;
@@ -86,10 +86,12 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  
 }
 
 .nav-links li {
   margin-top: 1rem;
+  color: black;
 }
 
 .nav-links a {
@@ -100,7 +102,7 @@
 }
 
 .nav-links a:hover {
-  color: #007bff;
+  color: #617245;
 }
 
 .auth-popover {

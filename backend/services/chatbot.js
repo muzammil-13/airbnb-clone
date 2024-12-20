@@ -21,7 +21,7 @@ wss.on('connection', (ws) => {
 
   // Handle incoming messages from client
   ws.on('message', (message) => {
-    console.log('Received:', message);
+    console.log('Received message from user:', message); // Log received message
     const userMessage = message.toLowerCase();
     let reply = "Sorry, I didn't understand that.";
 
@@ -33,6 +33,7 @@ wss.on('connection', (ws) => {
       }
     }
 
+    console.log('Sending reply to user:', reply); // Log sent reply
     // Send the reply back to the client
     ws.send(reply);
   });

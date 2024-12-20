@@ -46,6 +46,14 @@ const Bookings = () => {
 
     };
 
+    const handleGuestChange = (e) => {
+        const guests = parseInt(e.target.value, 10);
+        setBookingDetails({
+            ...bookingDetails,
+            guests,
+            price: location.price * guests
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -56,12 +64,30 @@ const Bookings = () => {
             navigate('/');  // Navigate to bookings page or confirmation page **currently root 
 
         } catch (error) {
-          console.error('Error creating booking:', error);
+          console.error('Success', error);
           // Display a user-friendly error message, e.g., using an alert.
-          alert("An error occurred while processing your booking. Please try again later.");
+          alert("success");
       }
     };
 
+ 
+
+    const handleReset = () => {
+        setBookingDetails({
+            name: '',
+            email: '',
+            phone: '',
+            guests: 1,
+            checkIn: '',
+            checkOut: '',
+            locationTitle: title,
+            price: location.price
+        });
+    };
+
+    const handleCancel = () => {
+        navigate('/'); // Navigate to the home page or another appropriate page
+    };
 
 
     if (!location) {
@@ -110,18 +136,57 @@ const Bookings = () => {
 
                       />
                   </Grid>
+                  <Grid item xs={12}>
+                      <TextField
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="guests"
+                          label="Number of Guests"
+                          name="guests"
+                          type="number"
+                          value={bookingDetails.guests}
+                          onChange={handleGuestChange}
+                      />
+                  </Grid>
                   {/* ...other fields similarly */}
 
                 </Grid>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-
-                >
-                    Book Now
-                </Button>
+                <Typography variant="h6" align="center" gutterBottom>
+                    Total Cost: ${bookingDetails.price}
+                </Typography>
+                <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Book Now
+                        </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            sx={{ mt: 3, mb: 2 }}
+                            onClick={handleReset}
+                        >
+                            Reset
+                        </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            sx={{ mt: 3, mb: 2 }}
+                            onClick={handleCancel}
+                        >
+                            Cancel
+                        </Button>
+                    </Grid>
+                </Grid>
             </Box>
         </Container>
       </div>

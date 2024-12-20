@@ -38,9 +38,9 @@ function Header() {
       </div>
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
-        {/* <li><Link to="/listings">View Listings</Link></li> */}
-        <li><Link to="#">About</Link></li>
-        <li><Link to="#">Contact</Link></li>
+        <li><Link to="/listings">View Listings</Link></li>
+        <li><Link to="/about">About</Link></li>
+        <li><Link to="/contact">Contact</Link></li>
         <li>
           <button onClick={toggleAuthForm} className="login-button">Login</button>
           {showAuthForm && (

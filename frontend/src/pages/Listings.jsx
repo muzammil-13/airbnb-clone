@@ -1,112 +1,85 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, CardActions,Card,CardMedia,CardContent, CircularProgress, Grid, Typography } from '@mui/material';  // Import CircularProgress and Typography
+import React, { useState, useEffect } from 'react';
+import { Button, CardActions, Card, CardMedia, CardContent, CircularProgress, Grid, Typography } from '@mui/material';
 import axios from 'axios';
+import '../styles/Listings.css';
 
 function Listings() {
     const [listings, setListings] = useState([]);
-    const [loading, setLoading] = useState(true);  // Loading state
-    const [error, setError] = useState(null);  // Error state
-
-
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchListings = async () => {
-            try {
-                const response = await fetch('/api/listings');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+            const options = {
+                method: 'GET',
+                url: 'https://airbnb-listings.p.rapidapi.com/v2/listingsByZipcode',
+                params: { state: 'us', zipcode: '92037', offset: '0' },
+                headers: {
+                    'x-rapidapi-key': 'd0f18fb5d1mshcddba1ba51d1ec5p11106djsnca737e7091db',
+                    'x-rapidapi-host': 'airbnb-listings.p.rapidapi.com'
                 }
-                const data = await response.json();
-                setListings(data);
+            };
 
-
+            try {
+                const response = await axios.request(options);
+                console.log('API Response:', response.data); // Log the entire response
+                if (response.data && response.data.results) {
+                    setListings(response.data.results);
+                } else {
+                    throw new Error('Invalid response format');
+                }
             } catch (error) {
                 console.error('Error fetching listings:', error);
-                setError(error.message); // Set the error message
-
-
-
+                setError(error.message);
             } finally {
-                setLoading(false); // Set loading to false after the request completes
+                setLoading(false);
             }
         };
 
-
         fetchListings();
-
     }, []);
 
-    // dummyjson data fetching
-        useEffect(() => {
-            const fetchListings = async () => {
-              try {
-                const response = await fetch('https://dummyjson.com/products?limit=6');
-                if (!response.ok) {
-                  throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                setListings(data.products); 
-              } catch (error) {
-                setError(error.message); // Set error message if the fetch fails
-              } finally {
-                setLoading(false); // Set loading to false regardless of success or failure
-              }
-            };
-
-            fetchListings();
-        }, []);
-
     if (loading) {
-      return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}> {/* Center the loading indicator */}
-          <CircularProgress />
-        </div>
-      );
-
+        return <CircularProgress />;
     }
-
-
 
     if (error) {
-
-      return <Typography variant="body1" color="error" align='center'>{error}</Typography>; // Display the error message
+        return <Typography color="error">Error: {error}</Typography>;
     }
 
-
     return (
-        <div style={{ padding: '20px' }}>
-            <Grid container spacing={3}> {/* Use Grid for responsive layout */}
-                {listings.map((listing) => (
-                    <Grid item xs={12} sm={6} md={4} key={listing.id}> {/* Adjust grid breakpoints */}
+        <Grid container spacing={2}>
+            {listings.length > 0 ? (
+                listings.map((listing) => (
+                    <Grid item xs={12} sm={6} md={4} key={listing.id}>
                         <Card>
-                           <CardMedia
+                            <CardMedia
                                 component="img"
-                                height="200" // Adjust as needed
-                                image={listing.image}
-                                alt={listing.title}
+                                height="140"
+                                image={listing.thumbnail_url}
+                                alt={listing.name}
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
-                                  <Link to={`/details/${listing.title}`}>{listing.title}</Link> {/* Link to Details page */}
+                                    {listing.name}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    {listing.description.substring(0, 100)}... {/* Limit description length */}
-                                </Typography>
-                                <Typography variant="h6" color="text.primary">
-                                    ₹{listing.price}
+                                    {listing.description}
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small">View Details</Button> {/* Add actions like "Book Now" */}
+                                <Button size="small" color="primary">
+                                    Learn More
+                                </Button>
                             </CardActions>
                         </Card>
                     </Grid>
-                ))}
-            </Grid>
-        </div>
+                ))
+            ) : (
+                <Typography>No listings available</Typography>
+            )}
+        </Grid>
     );
 }
 
 export default Listings;
-

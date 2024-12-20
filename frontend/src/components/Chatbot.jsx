@@ -16,6 +16,7 @@ function Chatbot() {
 
     socket.onmessage = (event) => {
       const botMessage = event.data;
+      console.log('Received message from bot:', botMessage); // Log received message
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'bot', text: botMessage },
@@ -33,6 +34,7 @@ function Chatbot() {
 
   const sendMessage = () => {
     if (socket && userInput.trim()) {
+      console.log('Sending message to bot:', userInput); // Log sent message
       // Send the user message to the WebSocket server
       socket.send(userInput);
       setMessages((prevMessages) => [
@@ -45,7 +47,7 @@ function Chatbot() {
 
   return (
     <div>
-      <h2>Chatbot</h2>
+      <h2>FAQ Bot</h2>
       <div id="chatbox">
         {messages.map((msg, index) => (
           <div key={index} className={msg.sender}>

@@ -1,0 +1,59 @@
+.about-page {
+    font-family: 'Arial', sans-serif; /* Or any other font you prefer */
+    line-height: 1.6;
+    padding: 20px;  /* Add some padding */
+    margin: 0 auto; /* Center the content horizontally */
+    max-width: 900px; /* Set a maximum width for readability */ /* Light background color */
+    display: flex;
+    flex-direction: column; /* Align content vertically */
+    align-items: center; /* Center content horizontally */
+    min-height: calc(100vh - 80px); /* Subtract header and footer height */
+
+}
+
+.about-section {
+    display: flex;           /* Use flexbox for layout */
+    align-items: center;     /* Vertically center content */
+    gap: 20px;             /* Add space between image and content */
+    flex-direction: column;
+    padding: 40px 0;
+    
+}
+
+.about-image-container {   /* Style image container */
+    width: 100%;       /* Make image responsive */
+    max-width: 700px; /* Set max-width for larger screens */
+    overflow: hidden;  /* Hide image overflow */
+    border-radius: 8px;
+}
+
+
+.about-image {
+    width: 100%;
+    height: auto;      /* Maintain aspect ratio */
+    display: block;
+    border-radius: 8px; /* Rounded corners for image */
+}
+
+.about-content {
+    text-align: left; /* Align content to the left */
+}
+
+.about-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.values-list {
+    list-style-type: disc;  /* Use bullet points */
+    padding-left: 20px;     /* Indent the list */
+}
+
+/* Media query for responsiveness - adjust as needed */
+@media (max-width: 768px) {
+    .about-section {
+        flex-direction: column; /* Stack image and content vertically */
+    }
+}
+

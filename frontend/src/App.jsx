@@ -8,6 +8,8 @@ import AuthForm from './pages/AuthForm';
 import Details from './pages/Details'; // Import the Details component
 import Listings from './pages/Listings'; // Import Listings component
 import Bookings from './pages/Bookings'; // Import your Bookings component
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 
 function App() {
@@ -55,6 +57,7 @@ function App() {
     <div className="App">  
       <BrowserRouter>
       <Header />
+        <div className='main-content'>
         <Routes>
           <Route path="/" element={<Home user={user} />} />
           <Route path="/listings" element={<Listings />} />
@@ -65,7 +68,11 @@ function App() {
           />
              <Route path="*" element={<Navigate to="/" />} />
              <Route path="/bookings/:title" element={<Bookings />} />
+             <Route path="/about" element={<About />} />
+             <Route path="/contact" element={<Contact />} />
+
         </Routes>
+        </div>
         <Footer/>
       </BrowserRouter>
     </div>

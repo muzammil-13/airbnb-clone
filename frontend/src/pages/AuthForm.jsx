@@ -145,7 +145,7 @@ function AuthForm() {
                             <Button
                                 type="submit"
                                 variant="contained"
-                                color="primary"
+                                color="#6E7E54"
                                 fullWidth
                                 startIcon={isLoginMode ? <IoMdLogIn /> : <SiGnuprivacyguard />}
                                 disabled={isLoading}
@@ -156,12 +156,12 @@ function AuthForm() {
                         <Box mt={2}>
                             <Button
                                 variant="outlined"
-                                color="success"
+                                color="#6E7E54"
                                 fullWidth
                                 startIcon={<MdOutlineSwitchAccount />}
                                 onClick={handleHostSwitch}
                             >
-                                Switch to Host
+                            Switch to Host
                             </Button>
                         </Box>
                         {isLoading && (
@@ -171,7 +171,10 @@ function AuthForm() {
                         )}
                     </form>
                     <Box mt={2} textAlign="center">
-                        <Button onClick={() => setIsLoginMode(!isLoginMode)}>
+                        <Button 
+                        color="#6E7E54"
+                        onClick={() => setIsLoginMode(!isLoginMode)} 
+                        >
                             {isLoginMode ? 'Switch to Sign Up' : 'Switch to Login'}
                         </Button>
                     </Box>

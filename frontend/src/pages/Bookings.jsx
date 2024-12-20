@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'; // Import useParams a
 import axios from 'axios'; // For making API requests
 import { TextField, Button, Container, Typography, Box, Grid } from '@mui/material';
 
-const Bookings = () => {
+const Bookings = ({price}) => {
     const { title } = useParams(); // Get the title from route parameters
     const navigate = useNavigate();
     const [bookingDetails, setBookingDetails] = useState({
@@ -14,9 +14,10 @@ const Bookings = () => {
         guests: 1,
         checkIn: '',
         checkOut: '',
-        locationTitle: title, 
-        price: 0  
+        locationTitle: title,
+        price: parseInt(price) // Use the passed price
     });
+    
 
 
     const [location, setLocation] = useState(null);
@@ -51,7 +52,7 @@ const Bookings = () => {
         setBookingDetails({
             ...bookingDetails,
             guests,
-            price: location.price * guests
+            price: parseInt(price) * guests // Calculate using passed price
         });
     };
 
@@ -97,102 +98,100 @@ const Bookings = () => {
 
 
     return (
-      <div className='main-booking'>
-        <Container maxWidth="sm">
-            <Typography variant="h4" align="center" gutterBottom>
-                Book {title}
+
+        <div className="bookings-container">
+        <div className="booking-form-wrapper">
+            <Typography variant="h4" className="booking-title">
+                Book Your Stay at {title}
             </Typography>
-
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                      <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="name"
-                          label="Full Name"
-                          name="name"
-                          autoComplete="name"
-                          autoFocus
-                          value={bookingDetails.name}
-                          onChange={handleChange}
-
-                      />
-                  </Grid>
-                  <Grid item xs={12}>
-                      <TextField
-
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="email"
-                          label="Email Address"
-                          name="email"
-                          autoComplete="email"
-                          value={bookingDetails.email}
-                          onChange={handleChange}
-
-
-                      />
-                  </Grid>
-                  <Grid item xs={12}>
-                      <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="guests"
-                          label="Number of Guests"
-                          name="guests"
-                          type="number"
-                          value={bookingDetails.guests}
-                          onChange={handleGuestChange}
-                      />
-                  </Grid>
-                  {/* ...other fields similarly */}
-
-                </Grid>
-                <Typography variant="h6" align="center" gutterBottom>
-                    Total Cost: ${bookingDetails.price}
-                </Typography>
-                <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Book Now
-                        </Button>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Button
-                            fullWidth
-                            variant="outlined"
-                            sx={{ mt: 3, mb: 2 }}
-                            onClick={handleReset}
-                        >
-                            Reset
-                        </Button>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Button
-                            fullWidth
-                            variant="outlined"
-                            sx={{ mt: 3, mb: 2 }}
-                            onClick={handleCancel}
-                        >
-                            Cancel
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Box>
-        </Container>
-      </div>
-
-    );
-};
+            
+            <form onSubmit={handleSubmit}>
+                <div className="form-grid">
+                    <TextField
+                        className="form-field"
+                        label="Full Name"
+                        name="name"
+                        value={bookingDetails.name}
+                        onChange={handleChange}
+                        fullWidth
+                        variant="outlined"
+                    />
+                    <TextField
+                        className="form-field"
+                        label="Email"
+                        name="email"
+                        type="email"
+                        value={bookingDetails.email}
+                        onChange={handleChange}
+                        fullWidth
+                        variant="outlined"
+                    />
+                    <TextField
+                        className="form-field"
+                        label="Phone"
+                        name="phone"
+                        value={bookingDetails.phone}
+                        onChange={handleChange}
+                        fullWidth
+                        variant="outlined"
+                    />
+                    <TextField
+                        className="form-field"
+                        label="Number of Guests"
+                        name="guests"
+                        type="number"
+                        value={bookingDetails.guests}
+                        onChange={handleGuestChange}
+                        fullWidth
+                        variant="outlined"
+                    />
+                </div>
+    
+                <div className="price-summary">
+                    <Typography variant="h5">Price Details</Typography>
+                    <div className="price-breakdown">
+                        <span>₹{bookingDetails.price} x {bookingDetails.guests} guests</span>
+                        <span>₹{bookingDetails.price * bookingDetails.guests}</span>
+                    </div>
+                    <div className="price-total">
+                        <Typography variant="h6">Total</Typography>
+                        <Typography variant="h6">₹{bookingDetails.price * bookingDetails.guests}</Typography>
+                    </div>
+                </div>
+    
+                <div className="button-group">
+                    <Button
+                        className="booking-button primary-btn"
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                    >
+                        Reserve
+                    </Button>
+                    <Button
+                        className="booking-button secondary-btn"
+                        onClick={handleReset}
+                        variant="outlined"
+                        fullWidth
+                    >
+                        Clear
+                    </Button>
+                    <Button
+                        className="booking-button cancel-btn"
+                        onClick={handleCancel}
+                        variant="outlined"
+                        color="error"
+                        fullWidth
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </form>
+        </div>
+    </div>    
+            );
+        }
+        
 
 
 export default Bookings;

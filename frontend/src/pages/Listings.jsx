@@ -1,120 +1,98 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Button, CardActions, Card, CardMedia, CardContent, CircularProgress, Grid, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Popover } from '@mui/material';
-import axios from 'axios';
-import '../styles/Listings.css';
+import React from 'react';
+import { Grid, Card, CardMedia, CardContent, Typography, Rating, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function Listings() {
-    const [listings, setListings] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [quotaExceeded, setQuotaExceeded] = useState(false);
-    const [anchorEl, setAnchorEl] = useState(null);
-    const errorButtonRef = useRef(null);
+    const keralaListings = [
+        {
+            id: 1,
+            name: "Kumarakom Lake Resort",
+            location: "Kumarakom",
+            image: "https://www.kumarakomlakeresort.in/images/gallery/exterior/presidential-suite-exterior.jpg",
+            description: "Luxury backwater resort featuring traditional Kerala architecture, infinity pool, and Ayurvedic spa.",
+            price: 25000,
+            rating: 4.8
+        },
+        {
+            id: 2,
+            name: "Tea Valley Resort Munnar",
+            image: "https://www.teavalleyresort.com/images/slider/tea-valley-resort-munnar.jpg",
+            location: "Munnar",
+            description: "Nestled in tea plantations offering panoramic valley views, mountain treks, and tea tasting experiences.",
+            price: 15000,
+            rating: 4.6
+        },
+        {
+            id: 3,
+            name: "Marari Beach Resort",
+            image: "https://www.cghearth.com/marari-beach/images/slider/beach-resort-kerala.jpg",
+            location: "Marari Beach",
+            description: "Beachfront eco-resort with traditional Kerala villas, seafood restaurant, and wellness center.",
+            price: 18000,
+            rating: 4.7
+        },
+        {
+            id: 4,
+            name: "Wayanad Wild Resort",
+            image: "https://www.cghearth.com/wayanad-wild/images/gallery/resort-view.jpg",
+            location: "Wayanad",
+            description: "Treehouse accommodation in the midst of rainforest, offering wildlife tours and nature walks.",
+            price: 12000,
+            rating: 4.5
+        },
+        {
+            id: 5,
+            name: "Coconut Lagoon",
+            image: "https://www.cghearth.com/coconut-lagoon/images/slider/backwater-resort-kerala.jpg",
+            location: "Kumarakom",
+            description: "Heritage lakeside resort accessible only by boat, featuring mansion rooms and private pools.",
+            price: 22000,
+            rating: 4.9
+        }
+    ];
 
-    useEffect(() => {
-        const fetchListings = async () => {
-            const options = {
-                method: 'GET',
-                url: 'https://travel-advisor.p.rapidapi.com/locations/search',
-                params: { query: 'Kerala', limit: '10', offset: '0', units: 'km' },
-                headers: {
-                    'x-rapidapi-key': '123456789',
-                    'x-rapidapi-host': 'travel-advisor.p.rapidapi.com'
-                }
-            };
-
-            try {
-                const response = await axios.request(options);
-                console.log('API Response:', response.data); // Log the entire response
-                if (response.data && response.data.data) {
-                    setListings(response.data.data);
-                } else {
-                    throw new Error('Invalid response format');
-                }
-            } catch (error) {
-                console.error('Error fetching listings:', error);
-                if (error.message.includes('you have exceeded your rapidapi basic quota')) {
-                    setQuotaExceeded(true);
-                }
-                if (error.message.includes('Request failed with status code 429')) {
-                    setAnchorEl(errorButtonRef.current);
-                }
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchListings();
-    }, []);
-
-    if (loading) {
-        return <CircularProgress />;
-    }
-
-    if (error) {
-        return <Typography color="error">Error: {error}</Typography>;
-    }
 
     return (
-        <>
-            <Grid container spacing={2}>
-                {listings.length > 0 ? (
-                    listings.map((listing) => (
-                        <Grid item xs={12} sm={6} md={4} key={listing.result_object.location_id}>
-                            <Card>
-                                <CardMedia
-                                    component="img"
-                                    height="140"
-                                    image={listing.result_object.photo ? listing.result_object.photo.images.medium.url : 'https://via.placeholder.com/140'}
-                                    alt={listing.result_object.name}
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        {listing.result_object.name}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {listing.result_object.description || 'No description available'}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" color="primary">
-                                        Learn More
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    ))
-                ) : (
-                    <Typography>No listings available</Typography>
-                )}
-            </Grid>
-            <Dialog open={quotaExceeded} onClose={() => setQuotaExceeded(false)}>
-                <DialogTitle>Quota Exceeded</DialogTitle>
-                <DialogContent>
-                    <Typography>You have exceeded your RapidAPI basic quota. Please upgrade your plan.</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setQuotaExceeded(false)} color="primary">Close</Button>
-                </DialogActions>
-            </Dialog>
-            <Button ref={errorButtonRef} style={{ display: 'none' }}>Error</Button>
-            <Popover
-                open={Boolean(anchorEl)}
-                anchorEl={anchorEl}
-                onClose={() => setAnchorEl(null)}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                }}
-            >
-                <Typography sx={{ p: 2 }}>Error: {error}</Typography>
-            </Popover>
-        </>
+        <Grid container spacing={3} sx={{ padding: 3, marginTop: '80px' }}>
+            {keralaListings.map((listing) => (
+                <Grid item xs={12} sm={6} md={4} key={listing.id}>
+                    <Card sx={{ 
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        transition: 'transform 0.3s',
+                        '&:hover': { transform: 'translateY(-5px)' }
+                    }}>
+                        <CardMedia
+                            component="img"
+                            height="200"
+                            image={listing.image}
+                            alt={listing.name}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5">
+                                {listing.name}
+                            </Typography>
+                            <Typography variant="subtitle1" color="text.secondary">
+                                {listing.location}
+                            </Typography>
+                            <Rating value={listing.rating} readOnly precision={0.1} />
+                            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                                {listing.description}
+                            </Typography>
+                            <Typography variant="h6" sx={{ mt: 2 }}>
+                                ₹{listing.price} per night
+                            </Typography>
+                            <Link to={`/details/${listing.name}?image=${encodeURIComponent(listing.image)}&price=${listing.price}`}>
+                                <Button variant="contained" sx={{ mt: 2, bgcolor: '#6e7e54' }}>
+                                    View Details
+                                </Button>
+                            </Link>
+                        </CardContent>
+                    </Card>
+                </Grid>
+            ))}
+        </Grid>
     );
 }
 

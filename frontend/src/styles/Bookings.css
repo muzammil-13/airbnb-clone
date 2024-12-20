@@ -1,82 +1,92 @@
-.main-booking { /* Styles for the main container */
-    padding: 13%;
+.bookings-container {
+    padding: 40px;
+    background-color: #f7f7f7;
+    min-height: 100vh;
+}
+
+.booking-form-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    padding: 32px;
+}
+
+.booking-title {
+    margin-bottom: 24px !important;
+    color: #222222;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.form-field {
+    background: #ffffff;
+}
+
+.price-summary {
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 32px 0;
+}
+
+.price-breakdown {
     display: flex;
-    flex-direction: column; 
-    align-items: center; /* Center content horizontally */
-    min-height: calc(100vh - 80px); /* Occupy full viewport height (adjust 80px if your header/footer height is different) */
-    padding-top: 10rem;   /* Add padding around the content */
-    background-color: #617245; /* Light background color */
+    justify-content: space-between;
+    margin: 16px 0;
+    color: #717171;
 }
 
-.main-booking h4 {  /* Style the main heading (h4) */
-    font-size: 2.5rem;  /* Larger font size */
-    margin-bottom: 2rem;  /* Add margin below the heading */
-    font-weight: 500;  /* Slightly bolder font weight */
-    color: #000000;  /* Darker text color */
-
+.price-total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #dddddd;
+    font-weight: 600;
 }
 
-.booking-form { /* Style the Material UI Box (form) */
-    width: 100%;
-    max-width: 600px; /* Set a max width for larger screens */
-
-
+.button-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
 }
 
-.booking-form .MuiTextField-root {
-    margin-bottom: 1.5rem !important; /* Consistent spacing between fields (override MUI default) */
-    width: 100%;  /* Text fields occupy full width */
-    background-color: #fff; /* White background for text fields */
-    border-radius: 4px; /* Rounded corners for text fields */
+.primary-btn {
+    background-color: #FF385C !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 14px !important;
+    text-transform: none !important;
 }
 
-.booking-form .MuiInputLabel-root {
-    color: #666; /* Slightly darker label color */
+.secondary-btn {
+    border-color: #222222 !important;
+    color: #222222 !important;
+    font-weight: 600 !important;
+    padding: 14px !important;
+    text-transform: none !important;
 }
 
-.booking-form button {   /* Style the "Book Now" button */
-    background-color: #617345; /* Example - use your primary color */
-    color: white;
-    padding: 12px 24px;  /* Increased padding */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.1rem; /* Larger font size */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-
+.cancel-btn {
+    color: #FF385C !important;
+    border-color: #FF385C !important;
+    font-weight: 600 !important;
+    padding: 14px !important;
+    text-transform: none !important;
 }
 
-
-.booking-form button:hover {
-
-    background-color: #0056b3;  /* Darker shade on hover */
-}
-
-
-/* Responsive Adjustments */
-@media (max-width: 600px) {
-    .main {
-        padding: 1rem;  /* Reduce padding on small screens */
-
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
     }
-    .main h4 { /* Adjust heading size */
-        font-size: 2rem;
-
+    
+    .bookings-container {
+        padding: 20px;
     }
-    .booking-form {
-        max-width: 100%; /* Form takes full width on small screens */
-
-    }
-
 }
-
-
-/* Optional: Add styles for error messages */
-.booking-form .Mui-error {
-
-    color: red;
-
-}
-
-
-

@@ -57,7 +57,7 @@ function App() {
     <div className="App">  
       <BrowserRouter>
       <Header />
-        <div className='main-content'>
+        <main className='main-content'>
         <Routes>
           <Route path="/" element={<Home user={user} />} />
           <Route path="/listings" element={<Listings />} />
@@ -72,7 +72,7 @@ function App() {
              <Route path="/contact" element={<Contact />} />
 
         </Routes>
-        </div>
+        </main>
         <Footer/>
       </BrowserRouter>
     </div>

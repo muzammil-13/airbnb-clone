@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react'; // Import useEffect
+import { useState, useEffect } from 'react'; // Import useEffect
 import '../styles/Home.css';
-import Listings from './Listings';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import LocationCard from '../components/cards/LocationCard';
 import { IoFilterCircle } from "react-icons/io5";
 import { SiChatbot } from "react-icons/si";
 import Chatbot from '../components/Chatbot';
-import Popover from '@mui/material/Popover';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Popover, Box, Typography, Checkbox, Slider, Button } from '@mui/material';
+import SearchTrip from '../components/SearchTrip';
 
 
 const Home = () => { 
@@ -50,14 +47,122 @@ const Home = () => {
         fetchListings();
     }, []);
 
-    return (
-        <div className="main">
-            <div className="mainContainer">
-                <div className="titleContainer">
-                    <div className="filterIconContainer"> {/* Improved naming */}
-                    <IoFilterCircle />
-                    </div>
+    // filter icon responding
+    const [filterAnchor, setFilterAnchor] = useState(null);
+    const [filters, setFilters] = useState({
+        priceRange: [0, 5000],
+        propertyType: [],
+        amenities: []
+    });
 
+    const handleFilterClick = (event) => {
+        setFilterAnchor(event.currentTarget);
+    };
+
+    const handleFilterClose = () => {
+        setFilterAnchor(null);
+    };
+
+    return (
+        <div className="main" style={{ 
+            paddingTop: '80px' // Adjust this value based on your header height
+        }}>
+
+            <div className="mainContainer">
+
+                <div className="titleContainer">
+
+                <div className="filterIconContainer">
+            <IoFilterCircle 
+                onClick={(e) => {
+                    e.stopPropagation();
+                    handleFilterClick(e);
+                }} 
+                style={{ 
+                    fontSize: '40px', 
+                    cursor: 'pointer'
+                }} 
+            />
+        </div>
+        <div className='searchTripContainer' onClick={(e) => e.stopPropagation()}>
+            <SearchTrip />
+        </div>
+
+                    <Popover
+                    open={Boolean(filterAnchor)}
+                    anchorEl={filterAnchor}
+                    onClose={handleFilterClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                    }}
+                    sx={{ zIndex: 1200 }} 
+                >
+                    <Box sx={{ p: 3, width: 300 }}>
+                        <Typography variant="h6" gutterBottom>
+                            Price Range
+                        </Typography>
+                        <Slider
+                            value={filters.priceRange}
+                            onChange={(e, newValue) => setFilters({...filters, priceRange: newValue})}
+                            valueLabelDisplay="auto"
+                            valueLabelFormat={(value) => `₹${value}`}
+                            min={0}
+                            max={5000}
+                        />
+
+
+                        <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+                            Property Type
+                        </Typography>
+                        {['House', 'Apartment', 'Villa', 'Resort'].map(type => (
+                            <Box key={type} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Checkbox 
+                                    checked={filters.propertyType.includes(type)}
+                                    onChange={(e) => {
+                                        const newTypes = e.target.checked 
+                                            ? [...filters.propertyType, type]
+                                            : filters.propertyType.filter(t => t !== type);
+                                        setFilters({...filters, propertyType: newTypes});
+                                    }}
+                                />
+                                <Typography>{type}</Typography>
+                            </Box>
+                        ))}
+
+                        <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+                            Amenities
+                        </Typography>
+                        {['WiFi', 'Pool', 'Kitchen', 'AC', 'Parking'].map(amenity => (
+                            <Box key={amenity} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Checkbox 
+                                    checked={filters.amenities.includes(amenity)}
+                                    onChange={(e) => {
+                                        const newAmenities = e.target.checked 
+                                            ? [...filters.amenities, amenity]
+                                            : filters.amenities.filter(a => a !== amenity);
+                                        setFilters({...filters, amenities: newAmenities});
+                                    }}
+                                />
+                                <Typography>{amenity}</Typography>
+                            </Box>
+                        ))}
+
+                        <Button 
+                            variant="contained" 
+                            fullWidth 
+                            sx={{ mt: 3 }}
+                            onClick={handleFilterClose}
+                        >
+                            Show Results
+                        </Button>
+                    </Box>
+                </Popover>
+                    
                     <div
                         className="chatIconContainer"
                         onClick={toggleChatbot}
@@ -100,9 +205,10 @@ const Home = () => {
                 <div className="contentContainer">
                     <h2>Your Journey Begins Here</h2>
                     <p>Discover amazing destinations and create unforgettable memories</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores cupiditate odio ad nemo, repellat natus explicabo reprehenderit obcaecati soluta quam. Error voluptates suscipit sapiente labore officia, exercitationem doloremque vero quas!</p>
                 </div>
 
-                <div className="locationsGrid"> {/* Better naming convention */}
+                <div className="locationsGrid">
                     <LocationCard
                         image="/images/960px-Kumarkom.jpg"
                         title="Kerala Backwaters"

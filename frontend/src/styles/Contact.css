@@ -5,16 +5,15 @@
     justify-content: center; /* Horizontally center the container */
     align-items: center; /* Vertically center the container */
     min-height: calc(100vh - 80px); /* Adjust min-height as needed */
-    /* background-color: #a08d8d; */
     flex-direction: column;
 
 }
 
 .contact-container {
-    background-color: #000000;
+    background-color: #41d980;
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Add a subtle shadow */
     max-width: 600px; /* Adjust max-width as needed */
     width: 90%; /* Make it responsive */
 }
@@ -22,7 +21,7 @@
 .contact-title {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: #ffffff;
 }
 
 .form-group {

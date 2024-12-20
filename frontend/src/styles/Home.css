@@ -5,88 +5,103 @@
 }
 
 .main {
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.mainContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.titleContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  padding: 0;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 1; /* Ensure main content is above background elements */
-  background: transparent; /* For overlay effects */
+  margin-bottom: 40px;
 }
 
-
-/* Main Content Container */
-.mainContainer {
-  width: 100%;
-  min-height: 100vh;  /* Ensure it takes up full viewport height */
-  margin: 0;
-  padding: var(--main-padding);
-  box-sizing: border-box;
-  position: relative; /* Needed for absolute positioning of children */
-  z-index: -1; /* Place behind the main content */
-
-
-}
-
-/* Title and Icons Container */
-.titleContainer {
+.filterIconContainer {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  justify-content: center;
+  z-index: 1100;
+}
+
+
+.searchTripContainer {
   width: 100%;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  z-index: 2;  /* Ensure above mainContainer if needed*/
-
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 5%;
 }
-
-
-
-.filterIconContainer,
-.chatIconContainer {
-  cursor: pointer;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem; /* Add margin for better spacing on mobile when wrapped */
-
-}
-
-
-/* Floating Chatbot Icon (No Nested Div) */
-.chatIconContainer {  /* Removed .floating-chatbot, styling applied here directly */
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 100; /* Ensure it stays on top */
-  /* background-color: #22da46; */
-  padding: 10px;
-  border-radius: 50%;
-
-}
-
 
 .contentContainer {
   text-align: center;
-  margin-bottom: 2rem;
-  width: 100%;
-
+  margin: 40px 0;
 }
 
 .contentContainer h2 {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
 }
 
 .contentContainer p {
-  font-size: 1rem;
+  font-size: 1.2rem;
+  color: #ffffff;
 }
 
 .locationsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 1rem;
-  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
 }
+
+.chatIconContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  cursor: pointer;
+  background-color: #6e7e54;
+  padding: 10px;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.chatIconContainer:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .locationsGrid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .contentContainer h2 {
+      font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .filterIconContainer {
+      top: 10px;
+      left: 10px;
+  }
+
+  .contentContainer h2 {
+      font-size: 1.5rem;
+  }
+}
+
 
 
 /* Media Queries (adjust breakpoints as needed) */

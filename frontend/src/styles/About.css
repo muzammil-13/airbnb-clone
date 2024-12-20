@@ -21,6 +21,7 @@
 }
 
 .about-image-container {   /* Style image container */
+    padding: 13%;
     width: 100%;       /* Make image responsive */
     max-width: 700px; /* Set max-width for larger screens */
     overflow: hidden;  /* Hide image overflow */
@@ -29,7 +30,7 @@
 
 
 .about-image {
-    width: 100%;
+    width: 50%;
     height: auto;      /* Maintain aspect ratio */
     display: block;
     border-radius: 8px; /* Rounded corners for image */

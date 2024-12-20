@@ -25,8 +25,8 @@ const Footer = () => {
             </li>
             {/* Example of an external link: */}
             <li>
-              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer" aria-label="External Link">
-                External Link
+              <a href="https://muzammil13travelproj.pythonanywhere.com/" target="_blank" rel="noopener noreferrer" aria-label="External Link">
+                Our Old Website (Sancharam Travels 1.0) ↗️
               </a>
             </li>
           </ul>

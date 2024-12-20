@@ -79,9 +79,11 @@ The Airbnb Clone Travel Website is a full-stack web application developed as par
 4. Configure environment variables:
    - Create a `.env` file in the `server` directory and add:
      ```
-     PORT=5000
-     MONGO_URI=your-mongodb-uri
-     JWT_SECRET=your-secret-key
+     PORT=3000
+     JWT_SECRET=<your-jwt-key>
+     CLIENT_URL=http://localhost:5173
+     MONGO_URI=mongodb://localhost:27017/
+     VITE_API_URL=http://localhost:3000
      ```
 5. Run the application:
    - Start the backend:
@@ -112,21 +114,23 @@ The Airbnb Clone Travel Website is a full-stack web application developed as par
 
 ```plaintext
 project/
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── server.js
+│   └── package.json
 ├── frontend/
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
-│   │   ├── App.jsx
+│   │   ├── App.js
 │   │   ├── index.js
-│   ├── package.json
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── server.js
-│   ├── package.json
+│   │   └── package.json
 ├── .gitignore
-├── README.md
+└── README.md
 ```
 
 ---

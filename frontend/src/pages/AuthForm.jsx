@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/AuthForm.css';
-import { Card, CardContent, Typography, TextField, Button, Box } from '@mui/material';
+import { Card, CardContent, Typography, TextField, Button, Box, CircularProgress } from '@mui/material';
 import { IoMdLogIn } from "react-icons/io";
 import { SiGnuprivacyguard } from "react-icons/si";
 import { MdOutlineSwitchAccount } from "react-icons/md"; // Import switch account icon
 import { API_URL } from '../config';
-
 
 function AuthForm() {
     const navigate = useNavigate();
@@ -21,72 +20,41 @@ function AuthForm() {
         e.preventDefault();
         setIsLoading(true);
         setErrorMessage('');
-    
-        try {
-            const url = `${API_URL}/api/auth/${isLoginMode ? 'login' : 'register'}`;
-            
-            const payload = isLoginMode
-                ? { email, password }
-                : { 
-                    firstName: username.split(' ')[0] || username, 
-                    lastName: username.split(' ')[1] || username,
-                    email, 
-                    password 
-                };
 
-            console.log('Sending request to:', url); // Debug log
-            
-            const response = await fetch(url, {
+        const endpoint = isLoginMode ? '/login' : '/signup';
+        const payload = isLoginMode ? { email, password } : { email, password, username };
+
+        try {
+            const response = await fetch(`${API_URL}/api/auth${endpoint}`, {
                 method: 'POST',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(payload),
             });
-    
+
             const data = await response.json();
-            console.log('Response:', data); // Debug log
-    
+
             if (!response.ok) {
-                throw new Error(data.message || 'Authentication failed');
+                throw new Error(data.message || 'Something went wrong');
             }
 
-            // Store token
-            if (data.token) {
-                localStorage.setItem('token', data.token);
-            } else {
-                console.error('No token received');
-                throw new Error('No token received from server');
-            }
-            
-            // Store user info if returned
-            if (data.user) {
-                localStorage.setItem('user', JSON.stringify(data.user));
-            }
-
-            // Clear form
-            setEmail('');
-            setPassword('');
-            setUsername('');
-
-            // Redirect to home page
+            // Handle successful login/signup
             navigate('/');
-            
         } catch (error) {
-            console.error('Authentication error:', error);
-            setErrorMessage(error.message || 'Authentication failed. Please try again.');
+            console.error('Error:', error);
+            setErrorMessage(error.message);
+
+            // Fallback to local storage
+            if (error.message.includes('Failed to fetch')) {
+                localStorage.setItem('authData', JSON.stringify(payload));
+                setErrorMessage('MongoDB is unresponsive. Data stored locally.');
+            } else if (error.message.includes('Internal Server Error')) {
+                setErrorMessage('Server error. Please try again later.');
+            }
         } finally {
             setIsLoading(false);
         }
-    };
-    
-
-    const toggleMode = () => {
-        setIsLoginMode(!isLoginMode);
-        setEmail('');
-        setPassword('');
-        setUsername('');
-        setErrorMessage('');
     };
 
     const handleHostSwitch = () => {
@@ -108,16 +76,9 @@ function AuthForm() {
                             justifyContent: 'center' 
                         }}
                     >
-                        {!isLoginMode && <SiGnuprivacyguard style={{ marginRight: '8px' }} />}
-                        {isLoginMode && <IoMdLogIn style={{ marginRight: '8px' }} />}
-                        {isLoginMode ? 'Login' : 'Signup'}
+                        {isLoginMode ? 'Login' : 'Sign Up'}
                     </Typography>
-                    <Box 
-                        component="form" 
-                        onSubmit={handleSubmit} 
-                        noValidate 
-                        sx={{ mt: 1 }}
-                    >
+                    <form onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         {!isLoginMode && (
                             <TextField
                                 margin="normal"
@@ -145,51 +106,53 @@ function AuthForm() {
                         <TextField
                             margin="normal"
                             fullWidth
-                            name="password"
+                            id="password"
                             label="Password"
                             type="password"
-                            id="password"
+                            name="password"
                             autoComplete="current-password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-
                         {errorMessage && (
-                            <Typography 
-                                variant="body2" 
-                                color="error" 
-                                align="center" 
-                                sx={{ mt: 2 }}
-                            >
+                            <Typography color="error" variant="body2">
                                 {errorMessage}
                             </Typography>
                         )}
-
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            disabled={isLoading}
-                        >
-                            {isLoading ? 'Processing...' : isLoginMode ? 'Login' : 'Signup'}
-                        </Button>
-                        <Button
-                            fullWidth
-                            variant="outlined"
-                            sx={{ mb: 2 }}
-                            startIcon={<MdOutlineSwitchAccount />}
-                            onClick={handleHostSwitch}
-                        >
-                            Switch to Host
-                        </Button>
-                        <Typography variant="body2" align="center">
-                            {isLoginMode ? "Don't have an account?" : "Already have an account?"}{' '}
-                            <Button onClick={toggleMode} variant="text">
-                                {isLoginMode ? 'Signup' : 'Login'}
+                        <Box mt={2}>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                fullWidth
+                                startIcon={isLoginMode ? <IoMdLogIn /> : <SiGnuprivacyguard />}
+                                disabled={isLoading}
+                            >
+                                {isLoginMode ? 'Login' : 'Sign Up'}
                             </Button>
-                        </Typography>
+                        </Box>
+                        <Box mt={2}>
+                            <Button
+                                variant="outlined"
+                                color="success"
+                                fullWidth
+                                startIcon={<MdOutlineSwitchAccount />}
+                                onClick={handleHostSwitch}
+                            >
+                                Switch to Host
+                            </Button>
+                        </Box>
+                        {isLoading && (
+                            <Box mt={2} display="flex" justifyContent="center">
+                                <CircularProgress />
+                            </Box>
+                        )}
+                    </form>
+                    <Box mt={2} textAlign="center">
+                        <Button onClick={() => setIsLoginMode(!isLoginMode)}>
+                            {isLoginMode ? 'Switch to Sign Up' : 'Switch to Login'}
+                        </Button>
                     </Box>
                 </CardContent>
             </Card>

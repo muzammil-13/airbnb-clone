@@ -6,7 +6,7 @@ const About = () => {
         <div className="about-page">
             <div className="about-section">
                 <div className="about-image-container"> {/* Container for image */}
-                    <img src="/images/about-us-image.jpg" alt="About Us" className="about-image" /> {/* Replace with your image */}
+                    <img src="/images/SANCHARAM-Travels-Logo.png" alt="About Us" className="about-image" /> {/* Replace with your image */}
                 </div>
                 <div className="about-content">
                     <h1 className="about-title">About SANCHARAM Travels</h1>

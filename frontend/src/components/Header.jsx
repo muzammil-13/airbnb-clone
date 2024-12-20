@@ -25,6 +25,46 @@ function Header() {
     setShowAuthForm(!showAuthForm);
   };
 
+  // search suggestions
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchContainerRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+                setShowSuggestions(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+const dummySearchData = {
+    trending: [
+        { title: "Munnar Hill Station", type: "Popular Destination" },
+        { title: "Alleppey Houseboats", type: "Most Booked" },
+        { title: "Wayanad Wildlife", type: "Trending" }
+    ],
+    recent: [
+        { title: "Kovalam Beach Resort", type: "Recent Search" },
+        { title: "Thekkady Tiger Reserve", type: "Recent Search" }
+    ],
+    properties: [
+        { title: "Kumarakom Lake Resort", location: "Backwaters" },
+        { title: "Tea Valley Resort", location: "Munnar" },
+        { title: "Vythiri Resort", location: "Wayanad" }
+    ]
+};
+
+const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setShowSuggestions(true);
+};
+
   
 
   return (
@@ -34,10 +74,54 @@ function Header() {
           <img src="/images/SANCHARAM-Travels-Logo.png" alt="Brand Logo" className="logo" />
         </Link>
       </div>
-      <div className="search-bar">
-        <input type="text" placeholder="Search your Home ;)" className='search-input'/>
+
+      {/* searchbar */}
+      <div className="search-container" ref={searchContainerRef}>
+    <div className="search-bar">
+        <input 
+            type="text" 
+            placeholder="Search your Home ;)" 
+            className='search-input'
+            value={searchQuery}
+            onChange={handleSearchChange}
+        />
         <TbHomeSearch className="search-icon"/>
-      </div>
+    </div>
+    
+    {showSuggestions && (
+        <div className="search-suggestions">
+            <div className="suggestion-section">
+                <h4>Trending</h4>
+                {dummySearchData.trending.map((item, index) => (
+                    <div key={index} className="suggestion-item">
+                        <span>{item.title}</span>
+                        <small>{item.type}</small>
+                    </div>
+                ))}
+            </div>
+            
+            <div className="suggestion-section">
+                <h4>Recent Searches</h4>
+                {dummySearchData.recent.map((item, index) => (
+                    <div key={index} className="suggestion-item">
+                        <span>{item.title}</span>
+                    </div>
+                ))}
+            </div>
+            
+            <div className="suggestion-section">
+                <h4>Popular Properties</h4>
+                {dummySearchData.properties.map((item, index) => (
+                    <div key={index} className="suggestion-item">
+                        <span>{item.title}</span>
+                        <small>{item.location}</small>
+                    </div>
+                ))}
+            </div>
+        </div>
+    )}
+</div>
+
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/listings">View Listings</Link></li>

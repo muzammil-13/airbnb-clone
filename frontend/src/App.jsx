@@ -5,9 +5,9 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home';
 import AuthForm from './pages/AuthForm';
-import Details from './pages/Details'; // Import the Details component
-import Listings from './pages/Listings'; // Import Listings component
-import Bookings from './pages/Bookings'; // Import your Bookings component
+import Details from './pages/Details'; 
+import Listings from './pages/Listings';
+import Bookings from './pages/Bookings'; 
 import About from './pages/About';
 import Contact from './pages/Contact';
 

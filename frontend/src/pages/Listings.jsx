@@ -8,7 +8,7 @@ function Listings() {
             id: 1,
             name: "Kumarakom Lake Resort",
             location: "Kumarakom",
-            image: "https://www.kumarakomlakeresort.in/images/gallery/exterior/presidential-suite-exterior.jpg",
+            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
             description: "Luxury backwater resort featuring traditional Kerala architecture, infinity pool, and Ayurvedic spa.",
             price: 25000,
             rating: 4.8
@@ -16,7 +16,7 @@ function Listings() {
         {
             id: 2,
             name: "Tea Valley Resort Munnar",
-            image: "https://www.teavalleyresort.com/images/slider/tea-valley-resort-munnar.jpg",
+            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
             location: "Munnar",
             description: "Nestled in tea plantations offering panoramic valley views, mountain treks, and tea tasting experiences.",
             price: 15000,
@@ -25,7 +25,7 @@ function Listings() {
         {
             id: 3,
             name: "Marari Beach Resort",
-            image: "https://www.cghearth.com/marari-beach/images/slider/beach-resort-kerala.jpg",
+            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
             location: "Marari Beach",
             description: "Beachfront eco-resort with traditional Kerala villas, seafood restaurant, and wellness center.",
             price: 18000,
@@ -34,7 +34,7 @@ function Listings() {
         {
             id: 4,
             name: "Wayanad Wild Resort",
-            image: "https://www.cghearth.com/wayanad-wild/images/gallery/resort-view.jpg",
+            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
             location: "Wayanad",
             description: "Treehouse accommodation in the midst of rainforest, offering wildlife tours and nature walks.",
             price: 12000,
@@ -43,12 +43,22 @@ function Listings() {
         {
             id: 5,
             name: "Coconut Lagoon",
-            image: "https://www.cghearth.com/coconut-lagoon/images/slider/backwater-resort-kerala.jpg",
+            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
             location: "Kumarakom",
             description: "Heritage lakeside resort accessible only by boat, featuring mansion rooms and private pools.",
             price: 22000,
             rating: 4.9
+        },
+        {
+            id: 6,
+            name: "Marari Beach Resort 2",
+            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
+            location: "Marari Beac",
+            description: "Beachfront eco-resort with traditional Kerala villas, seafood restaurant, and wellness center.",
+            price: 18000,
+            rating: 5.0
         }
+
     ];
 
 

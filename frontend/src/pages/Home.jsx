@@ -7,11 +7,33 @@ import { SiChatbot } from "react-icons/si";
 import Chatbot from '../components/Chatbot';
 import { Popover, Box, Typography, Checkbox, Slider, Button } from '@mui/material';
 import SearchTrip from '../components/SearchTrip';
+import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
+import { AccountCircle } from '@mui/icons-material';
 
 
 const Home = () => { 
     const [showChatbot, setShowChatbot] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
+    
+    // Add these state variables inside the Home component
+    const [userAnchorEl, setUserAnchorEl] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+// Add these handler functions
+    const handleUserClick = (event) => { 
+        setUserAnchorEl(event.currentTarget);
+    };
+
+    const handleUserClose = () => {
+        setUserAnchorEl(null);
+    };
+
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        setUserAnchorEl(null);
+    // Add your logout logic here
+};
+
 
     const [listings, setListings] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -65,10 +87,40 @@ const Home = () => {
 
     return (
         <div className="main" style={{ 
-            paddingTop: '80px' // Adjust this value based on your header height
+            paddingTop: '10px' // Adjust this value based on your header height
         }}>
 
             <div className="mainContainer">
+
+    <div className="userIconContainer" style={{ 
+        position: 'absolute', 
+        top: 20, 
+        right: 20, 
+        zIndex: 1100 
+    }}>
+    <IconButton onClick={handleUserClick}>
+        {isLoggedIn ? (
+            <Avatar sx={{ bgcolor: 'white' }}>U</Avatar>
+        ) : (
+            <AccountCircle sx={{ fontSize: 40, color: 'white' }} />
+        )}
+    </IconButton>
+    <Menu
+        anchorEl={userAnchorEl}
+        open={Boolean(userAnchorEl)}
+        onClose={handleUserClose}
+    >
+        {isLoggedIn ? (
+            [
+                <MenuItem key="profile">Profile</MenuItem>,
+                <MenuItem key="bookings">My Bookings</MenuItem>,
+                <MenuItem key="logout" onClick={handleLogout}>Logout</MenuItem>
+            ]
+        ) : (
+            <MenuItem onClick={() => navigate('/login')}>Login</MenuItem>
+        )}
+    </Menu>
+</div>
 
                 <div className="titleContainer">
 

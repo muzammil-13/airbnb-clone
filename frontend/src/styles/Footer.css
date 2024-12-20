@@ -1,145 +1,103 @@
-/* footer.css */
-
 .footer {
-  width: 100%;
-  padding: 2rem 0; /* Consistent padding top/bottom */
-  background-color: #617245; /* Dark background */
-  color: #fff;  /* White text */
-  font-family: sans-serif; /* Default font */
-
+  background: linear-gradient(135deg, #2c3e50 0%, #617245 100%);
+  color: #ffffff;
+  padding: 60px 0 30px;
 }
 
 .footer-content {
-  max-width: 1200px; /* Set a max-width for the container */
-  margin: 0 auto;  /* Center the content */
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Align items vertically */
-  flex-wrap: wrap;  /* Allow wrapping on smaller screens */
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  padding: 0 20px;
 }
 
-
-
 .company-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;  /* Align to the left */
-  margin-bottom: 1rem; /* Spacing on smaller screens */
-
-
+  animation: fadeIn 0.8s ease-in;
 }
 
 .company-info h1 {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  color: #fff;
-  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  background: linear-gradient(45deg, #fff, #e0e0e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-
-.company-info a { /* Style the link around the logo/company name */
-  text-decoration: none; /* Remove underline */
-  color: inherit;  /* Inherit text color from parent */
-
+.company-info p {
+  color: #ecf0f1;
+  line-height: 1.6;
 }
 
+.footer-nav {
+  margin-top: 10px;
+}
 
-
-
-.footer-nav ul { /* Style the list itself */
-  list-style: none; /* Remove bullet points */
-  margin: 0;
+.footer-nav ul {
+  list-style: none;
   padding: 0;
-  display: flex;
-  align-items: center;
-
 }
-
 
 .footer-nav li {
-  margin: 0 1rem; /* Spacing between list items */
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
 
-
+.footer-nav li:hover {
+  transform: translateX(10px);
 }
 
 .footer-nav a {
+  color: #ecf0f1;
   text-decoration: none;
-  color: #fff; /* White link color */
-  transition: color 0.3s ease; /* Smooth transition on hover */
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
 }
 
 .footer-nav a:hover {
-  color: lightblue;
+  color: #3498db;
 }
 
-
-.footer-features {
-display: flex;
-flex-direction: column;
-align-items: flex-end;  /* Align to the right */
-text-align: right;
-margin-bottom: 1rem;  /* Spacing on smaller screens */
-
-
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
 }
 
-
-.footer-features .feature {
-margin-bottom: 0.5rem; /* Reduce spacing between features */
-
+.social-icon {
+  color: #fff;
+  font-size: 24px;
+  transition: transform 0.3s ease;
 }
 
-.footer-features h3 {
-margin-bottom: 0.25rem;
-font-size: 1.2rem;
-color: #fff;
-
+.social-icon:hover {
+  transform: translateY(-5px);
 }
 
-.footer-features p {  /* Style feature paragraphs */
-color: #bbb;   /* Slightly lighter text color */
-font-size: 1rem;
-
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-
-
-
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .footer-content {
-      flex-direction: column; /* Stack elements vertically */
-      align-items: center;  /* Center all content */
-      text-align: center;      /* Center the text */
-
+      grid-template-columns: 1fr;
+      text-align: center;
   }
 
-  .company-info,
-  .footer-nav,
-  .footer-features {
-    margin-bottom: 1.5rem; /* Increased spacing between sections */
-    width: 100%;  /* Occupy full width on small screens */
-    align-items: center;
-    text-align: center;  /* Center text in all sections */
+  .footer-nav li:hover {
+      transform: none;
   }
 
-  .footer-nav ul {
-    flex-direction: column;
-    
+  .social-links {
+      justify-content: center;
   }
-
-  .footer-nav li {
-      margin: 0.5rem 0; /* Vertical margin between links */
-
-  }
-
-  .footer-features {
-    align-items: center; /* Center features */
-  }
-
-
-
-
 }
-

@@ -5,9 +5,11 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home';
 import AuthForm from './pages/AuthForm';
-import Details from './pages/Details'; // Import the Details component
-import Listings from './pages/Listings'; // Import Listings component
-import Bookings from './pages/Bookings'; // Import your Bookings component
+import Details from './pages/Details'; 
+import Listings from './pages/Listings';
+import Bookings from './pages/Bookings'; 
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 
 function App() {
@@ -33,7 +35,7 @@ function App() {
     };
 
     fetchUser();
-  }, []); // Empty dependency array ensures this runs only once
+  }, []); 
 
 
   useEffect(() => {
@@ -55,9 +57,10 @@ function App() {
     <div className="App">  
       <BrowserRouter>
       <Header />
+        <main className='main-content'>
         <Routes>
           <Route path="/" element={<Home user={user} />} />
-          <Route path="/listings" element={<Listings />} /> {/* Route for Listings page */}
+          <Route path="/listings" element={<Listings />} />
           <Route path="/details/:title" element={<Details />} />
           <Route
             path="/AuthForm"
@@ -65,7 +68,11 @@ function App() {
           />
              <Route path="*" element={<Navigate to="/" />} />
              <Route path="/bookings/:title" element={<Bookings />} />
+             <Route path="/about" element={<About />} />
+             <Route path="/contact" element={<Contact />} />
+
         </Routes>
+        </main>
         <Footer/>
       </BrowserRouter>
     </div>

@@ -1,67 +1,98 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Paper, TextField, IconButton, Box, Typography } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 function Chatbot() {
-  const [userInput, setUserInput] = useState('');
-  const [messages, setMessages] = useState([]);
-  const [socket, setSocket] = useState(null);
+    const [messages, setMessages] = useState([]);
+    const [input, setInput] = useState('');
+    const [socket, setSocket] = useState(null);
+    const messagesEndRef = useRef(null);
 
-  useEffect(() => {
-    // Connect to the WebSocket server (backend/services/chatbot.js)
-    const socket = new WebSocket('ws://localhost:5000');
-    setSocket(socket);
-
-    socket.onopen = () => {
-      console.log('WebSocket connection established');
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
-    socket.onmessage = (event) => {
-      const botMessage = event.data;
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { sender: 'bot', text: botMessage },
-      ]);
+    useEffect(() => {
+        const ws = new WebSocket('ws://localhost:5000');
+        
+        ws.onopen = () => {
+            console.log('Connected to chatbot');
+        };
+
+        ws.onmessage = (event) => {
+            setMessages(prev => [...prev, { text: event.data, sender: 'bot' }]);
+        };
+
+        setSocket(ws);
+
+        return () => ws.close();
+    }, []);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+    const handleSend = () => {
+        if (input.trim() && socket) {
+            socket.send(input);
+            setMessages(prev => [...prev, { text: input, sender: 'user' }]);
+            setInput('');
+        }
     };
 
-    socket.onclose = () => {
-      console.log('WebSocket connection closed');
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSend();
+        }
     };
 
-    return () => {
-      socket.close(); // Cleanup WebSocket on component unmount
-    };
-  }, []);
+    return (
+        <Paper elevation={3} sx={{ position: 'fixed', bottom: 20, right: 20, width: 300, height: 400 }}>
+            <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <Typography variant="h6" sx={{ p: 2, bgcolor: 'primary.main', color: 'white' }}>
+                    Travel Assistant
+                </Typography>
+                
+                <Box sx={{ flex: 1, overflow: 'auto', p: 2 }}>
+                    {messages.map((msg, index) => (
+                        <Box
+                            key={index}
+                            sx={{
+                                display: 'flex',
+                                justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                                mb: 1
+                            }}
+                        >
+                            <Paper
+                                sx={{
+                                    p: 1,
+                                    bgcolor: msg.sender === 'user' ? 'primary.light' : 'grey.100',
+                                    maxWidth: '80%'
+                                }}
+                            >
+                                <Typography>{msg.text}</Typography>
+                            </Paper>
+                        </Box>
+                    ))}
+                    <div ref={messagesEndRef} />
+                </Box>
 
-  const sendMessage = () => {
-    if (socket && userInput.trim()) {
-      // Send the user message to the WebSocket server
-      socket.send(userInput);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { sender: 'user', text: userInput },
-      ]);
-      setUserInput('');
-    }
-  };
-
-  return (
-    <div>
-      <h2>Chatbot</h2>
-      <div id="chatbox">
-        {messages.map((msg, index) => (
-          <div key={index} className={msg.sender}>
-            <strong>{msg.sender}:</strong> {msg.text}
-          </div>
-        ))}
-      </div>
-      <input
-        type="text"
-        value={userInput}
-        onChange={(e) => setUserInput(e.target.value)}
-        placeholder="Type a message..."
-      />
-      <button onClick={sendMessage}>Send</button>
-    </div>
-  );
+                <Box sx={{ p: 2, display: 'flex', gap: 1 }}>
+                    <TextField
+                        fullWidth
+                        size="small"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        placeholder="Type a message..."
+                    />
+                    <IconButton color="primary" onClick={handleSend}>
+                        <SendIcon />
+                    </IconButton>
+                </Box>
+            </Box>
+        </Paper>
+    );
 }
 
 export default Chatbot;

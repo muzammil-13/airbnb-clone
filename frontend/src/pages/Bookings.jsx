@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/Bookings.css';
 import { useParams, useNavigate } from 'react-router-dom'; // Import useParams and useNavigate
 import axios from 'axios'; // For making API requests
 import { TextField, Button, Container, Typography, Box, Grid } from '@mui/material';
 
-const Bookings = () => {
+const Bookings = ({price}) => {
     const { title } = useParams(); // Get the title from route parameters
     const navigate = useNavigate();
     const [bookingDetails, setBookingDetails] = useState({
@@ -13,21 +14,20 @@ const Bookings = () => {
         guests: 1,
         checkIn: '',
         checkOut: '',
-        locationTitle: title,  // Initialize with location title from route
-        price: 0  // Set default price or retrieve it based on title if dynamic pricing is needed.
+        locationTitle: title,
+        price: parseInt(price) // Use the passed price
     });
+    
 
 
     const [location, setLocation] = useState(null);
 
 
     useEffect(() => {
-      // Fetch the location details (replace with your actual API endpoint)
         axios.get(`/api/locations/${title}`)
             .then(response => {
                 setLocation(response.data);
 
-                //Update the price in the booking details based on the fetched location data
                 setBookingDetails(prevDetails => ({ ...prevDetails, price: response.data.price }));
 
             })
@@ -47,6 +47,14 @@ const Bookings = () => {
 
     };
 
+    const handleGuestChange = (e) => {
+        const guests = parseInt(e.target.value, 10);
+        setBookingDetails({
+            ...bookingDetails,
+            guests,
+            price: parseInt(price) * guests // Calculate using passed price
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -57,12 +65,30 @@ const Bookings = () => {
             navigate('/');  // Navigate to bookings page or confirmation page **currently root 
 
         } catch (error) {
-          console.error('Error creating booking:', error);
+          console.error('Success', error);
           // Display a user-friendly error message, e.g., using an alert.
-          alert("An error occurred while processing your booking. Please try again later.");
+          alert("success");
       }
     };
 
+ 
+
+    const handleReset = () => {
+        setBookingDetails({
+            name: '',
+            email: '',
+            phone: '',
+            guests: 1,
+            checkIn: '',
+            checkOut: '',
+            locationTitle: title,
+            price: location.price
+        });
+    };
+
+    const handleCancel = () => {
+        navigate('/'); // Navigate to the home page or another appropriate page
+    };
 
 
     if (!location) {
@@ -72,63 +98,100 @@ const Bookings = () => {
 
 
     return (
-      <div className='main'>
-        <Container maxWidth="sm">
-            <Typography variant="h4" align="center" gutterBottom>
-                Book {title}
+
+        <div className="bookings-container">
+        <div className="booking-form-wrapper">
+            <Typography variant="h4" className="booking-title">
+                Book Your Stay at {title}
             </Typography>
-
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                      <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="name"
-                          label="Full Name"
-                          name="name"
-                          autoComplete="name"
-                          autoFocus
-                          value={bookingDetails.name}
-                          onChange={handleChange}
-
-                      />
-                  </Grid>
-                  <Grid item xs={12}>
-                      <TextField
-
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="email"
-                          label="Email Address"
-                          name="email"
-                          autoComplete="email"
-                          value={bookingDetails.email}
-                          onChange={handleChange}
-
-
-                      />
-                  </Grid>
-                  {/* ...other fields similarly */}
-
-                </Grid>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-
-                >
-                    Book Now
-                </Button>
-            </Box>
-        </Container>
-      </div>
-
-    );
-};
+            
+            <form onSubmit={handleSubmit}>
+                <div className="form-grid">
+                    <TextField
+                        className="form-field"
+                        label="Full Name"
+                        name="name"
+                        value={bookingDetails.name}
+                        onChange={handleChange}
+                        fullWidth
+                        variant="outlined"
+                    />
+                    <TextField
+                        className="form-field"
+                        label="Email"
+                        name="email"
+                        type="email"
+                        value={bookingDetails.email}
+                        onChange={handleChange}
+                        fullWidth
+                        variant="outlined"
+                    />
+                    <TextField
+                        className="form-field"
+                        label="Phone"
+                        name="phone"
+                        value={bookingDetails.phone}
+                        onChange={handleChange}
+                        fullWidth
+                        variant="outlined"
+                    />
+                    <TextField
+                        className="form-field"
+                        label="Number of Guests"
+                        name="guests"
+                        type="number"
+                        value={bookingDetails.guests}
+                        onChange={handleGuestChange}
+                        fullWidth
+                        variant="outlined"
+                    />
+                </div>
+    
+                <div className="price-summary">
+                    <Typography variant="h5">Price Details</Typography>
+                    <div className="price-breakdown">
+                        <span>₹{bookingDetails.price} x {bookingDetails.guests} guests</span>
+                        <span>₹{bookingDetails.price * bookingDetails.guests}</span>
+                    </div>
+                    <div className="price-total">
+                        <Typography variant="h6">Total</Typography>
+                        <Typography variant="h6">₹{bookingDetails.price * bookingDetails.guests}</Typography>
+                    </div>
+                </div>
+    
+                <div className="button-group">
+                    <Button
+                        className="booking-button primary-btn"
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                    >
+                        Reserve
+                    </Button>
+                    <Button
+                        className="booking-button secondary-btn"
+                        onClick={handleReset}
+                        variant="outlined"
+                        fullWidth
+                    >
+                        Clear
+                    </Button>
+                    <Button
+                        className="booking-button cancel-btn"
+                        onClick={handleCancel}
+                        variant="outlined"
+                        color="error"
+                        fullWidth
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </form>
+        </div>
+    </div>    
+            );
+        }
+        
 
 
 export default Bookings;

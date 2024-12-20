@@ -1,25 +1,87 @@
 .location-card {
-    width: 100px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    overflow: hidden;
-    margin: 1rem;
-    background: white;
-  }
-  
-  .location-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .location-content {
-    padding: 1rem;
-  }
-  
-  .price {
-    font-weight: bold;
-    color: #007bff;
-    margin-top: 0.5rem;
-  }
-  
+  border-radius: 12px !important;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: white;
+}
+
+.location-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-media {
+  height: 240px !important;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card-media:hover {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 16px !important;
+}
+
+.card-title {
+  color: #2c3e50;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+.card-description {
+  color: #666;
+  margin-bottom: 16px !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-price {
+  color: #6E7E54 !important;
+  font-weight: 600 !important;
+}
+
+.price-suffix {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: normal;
+}
+
+.card-actions {
+  padding: 8px 16px 16px !important;
+  display: flex;
+  justify-content: space-between;
+}
+
+.share-button {
+  color: #617345 !important;
+  font-weight: 500 !important;
+}
+
+.book-button, .details-button {
+  background-color: #6E7E54 !important;
+  color: white !important;
+  padding: 6px 16px !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.book-button:hover, .details-button:hover {
+  background-color: #617345 !important;
+}
+
+.action-link {
+  text-decoration: none;
+}
+
+#share-menu .MuiMenuItem-root {
+  padding: 8px 16px;
+}
+
+#share-menu .MuiMenuItem-root:hover {
+  background-color: rgba(110, 126, 84, 0.1);
+}

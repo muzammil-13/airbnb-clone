@@ -2,21 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 .App {
   min-height: 100vh;
-  width: 100%;
+  width : 100vw;
   background: linear-gradient(var(--overlay-color), var(--overlay-color)),
     url('/images/travel-bg.jpg') center center / cover no-repeat fixed;
 }
 
-.mainContainer {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 80vh;
+.main-content {
+  padding-top: 80px; /* Adjust based on your header height */
+  min-height: 100vh;
 }
+
 
 .titleContainer {
   font-size: 2rem;
@@ -47,4 +46,8 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   padding: 2rem;
+}
+
+.headerContainer {
+  padding: 20px;
 }

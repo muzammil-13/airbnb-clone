@@ -1,24 +1,8 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Menu, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import {
-    FacebookShareButton,
-    TwitterShareButton,
-    WhatsappShareButton,
-    FacebookIcon,
-    TwitterIcon,
-    WhatsappIcon,
-} from 'react-share';
-import {
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Button,
-    Typography,
-    Menu,
-    MenuItem,
-} from '@mui/material';
+import { FacebookShareButton, TwitterShareButton, WhatsappShareButton, FacebookIcon, TwitterIcon, WhatsappIcon } from 'react-share';
+import './LocationCard.css';
 
 const LocationCard = ({ image, title, description, price }) => {
     const shareUrl = window.location.href;
@@ -35,90 +19,65 @@ const LocationCard = ({ image, title, description, price }) => {
     };
 
     return (
-        <Card sx={{ maxWidth: 345, boxShadow: 3 }}>  {/* Added boxShadow */}
+        <Card className="location-card">
             <CardMedia
                 component="img"
-                height="140" // Give the image explicit height
+                height="240"
                 image={image}
                 alt={title}
-                onError={(e) => {  // Error handler for image
-                    e.target.src = '/images/placeholder.jpg'; // Placeholder image URL
-                }}
+                className="card-media"
             />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+            <CardContent className="card-content">
+                <Typography variant="h6" className="card-title">
                     {title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" className="card-description">
                     {description}
                 </Typography>
-                <Typography variant="body2" color="text.primary">
-                    {price ? `Starting from ₹${price}` : "Contact for pricing"}  {/* Conditional price display */}
+                <Typography variant="h6" className="card-price">
+                    ₹{price} <span className="price-suffix">per night</span>
                 </Typography>
             </CardContent>
-
-
- <CardActions disableSpacing>
-                <Button size="small" onClick={handleClick} aria-controls={open ? 'share-menu' : undefined}
-                    aria-haspopup="true" aria-expanded={open ? 'true' : undefined}>
+            <CardActions className="card-actions">
+                <Button 
+                    size="small" 
+                    onClick={handleClick}
+                    className="share-button"
+                >
                     Share
                 </Button>
-
-
                 <Menu
                     id="share-menu"
                     anchorEl={anchorEl}
                     open={open}
                     onClose={handleClose}
-                    MenuListProps={{ 'aria-labelledby': 'share-button', }}
+                    MenuListProps={{ 'aria-labelledby': 'share-button' }}
                 >
-
-
                     <MenuItem>
                         <FacebookShareButton url={shareUrl} quote={shareTitle}>
                             <FacebookIcon size={32} round /> Share on Facebook
                         </FacebookShareButton>
-                    </MenuItem> {/* Added closing MenuItem tag */}
-
+                    </MenuItem>
                     <MenuItem>
                         <TwitterShareButton url={shareUrl} title={shareTitle}>
                             <TwitterIcon size={32} round /> Share on Twitter
                         </TwitterShareButton>
-                    </MenuItem> {/* Added closing MenuItem tag */}
-
-
+                    </MenuItem>
                     <MenuItem>
                         <WhatsappShareButton url={shareUrl} title={shareTitle}>
                             <WhatsappIcon size={32} round /> Share on Whatsapp
                         </WhatsappShareButton>
-                    </MenuItem> {/* Added closing MenuItem tag */}
-
-
-
-
+                    </MenuItem>
                 </Menu>
-
-                <Link to={`/details/${title}`}>
-                    <Button size="small">Details</Button>
+                <Link to={`/bookings/${title}?image=${encodeURIComponent(image)}`} className="action-link">
+                    <Button size="small" className="book-button">Book Now</Button>
                 </Link>
-
-
+                <Link to={`/details/${title}?image=${encodeURIComponent(image)}&price=${price}&description=${encodeURIComponent(description)}`} className="action-link">
+                    <Button size="small" className="details-button">Details</Button>
+                </Link>
             </CardActions>
-
-
-
-
         </Card>
     );
-};
-
-
-
-LocationCard.propTypes = {
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    price: PropTypes.number,  // Price is no longer required, can be null or undefined
 };
 
 export default LocationCard;

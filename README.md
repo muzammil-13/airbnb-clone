@@ -6,7 +6,7 @@ The Airbnb Clone Travel Website is a full-stack web application developed as par
 
 ---
 
-## Table of Contents
+## Table of ontents
 
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -79,9 +79,11 @@ The Airbnb Clone Travel Website is a full-stack web application developed as par
 4. Configure environment variables:
    - Create a `.env` file in the `server` directory and add:
      ```
-     PORT=5000
-     MONGO_URI=your-mongodb-uri
-     JWT_SECRET=your-secret-key
+     PORT=3000
+     JWT_SECRET=<your-jwt-key>
+     CLIENT_URL=http://localhost:5173
+     MONGO_URI=mongodb://localhost:27017/
+     VITE_API_URL=http://localhost:3000
      ```
 5. Run the application:
    - Start the backend:
@@ -112,21 +114,23 @@ The Airbnb Clone Travel Website is a full-stack web application developed as par
 
 ```plaintext
 project/
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── server.js
+│   └── package.json
 ├── frontend/
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
-│   │   ├── App.jsx
+│   │   ├── App.js
 │   │   ├── index.js
-│   ├── package.json
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── server.js
-│   ├── package.json
+│   │   └── package.json
 ├── .gitignore
-├── README.md
+└── README.md
 ```
 
 ---
@@ -139,10 +143,17 @@ project/
 
 [Demo: Landing page]
 
-![1733724005734](image/README/1733724005734.png)
+![1734579812004](image/README/1734579812004.png)
 
 [Demo: Authentication]
 
+Login:
+
+![1734579316511](image/README/1734579316511.png "login component")
+
+Signup:
+
+![1734579341425](image/README/1734579341425.png)
 
 ---
 
@@ -151,6 +162,10 @@ project/
 - **Payment Integration**: Add a payment gateway for bookings.
 - **Property Reviews**: Allow users to leave reviews and ratings.
 - **Admin Dashboard**: Manage property listings and bookings.
+
+[Demo: Tech Architecture with Future implementions]
+
+![1734529435931](image/README/1734529435931.png)
 
 ---
 

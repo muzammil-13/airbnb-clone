@@ -22,6 +22,21 @@ const Bookings = ({price}) => {
         locationTitle: title,
         price: parseInt(price) // Use the passed price
     });
+
+    // Update the price calculation logic
+const calculateTotalPrice = () => {
+    if (checkInDate && checkOutDate) {
+        const nights = differenceInDays(checkOutDate, checkInDate);
+        // Base price per night * number of nights * number of guests
+        const baseTotal = parseInt(price) * nights;
+        setTotalPrice(baseTotal);
+        
+        setBookingDetails(prev => ({
+            ...prev,
+            price: baseTotal
+        }));
+    }
+};
     
     const [location, setLocation] = useState(null);
     // itinerary state to store the selected dates
@@ -172,17 +187,18 @@ const generateItinerary = (event) => {
                     />
                 </div>
     
-                <div className="price-summary">
-                    <Typography variant="h5">Price Details</Typography>
-                    <div className="price-breakdown">
-                        <span>₹{bookingDetails.price} x {bookingDetails.guests} guests</span>
-                        <span>₹{bookingDetails.price * bookingDetails.guests}</span>
-                    </div>
-                    <div className="price-total">
-                        <Typography variant="h6">Total</Typography>
-                        <Typography variant="h6">₹{bookingDetails.price * bookingDetails.guests}</Typography>
-                    </div>
-                </div>
+                {/* // Update the price summary display */}
+<div className="price-summary">
+    <Typography variant="h5">Price Details</Typography>
+    <div className="price-breakdown">
+        <span>₹{price} x {differenceInDays(checkOutDate, checkInDate) || 0} nights</span>
+        <span>₹{totalPrice}</span>
+    </div>
+    <div className="price-total">
+        <Typography variant="h6">Total</Typography>
+        <Typography variant="h6">₹{totalPrice}</Typography>
+    </div>
+</div>
 
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
     <div className="date-selectors">

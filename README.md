@@ -2,90 +2,98 @@
 
 ## Project Overview
 
-The Airbnb Clone Travel Website is a full-stack web application developed as part of the MERN stack development program. This project aims to replicate key functionalities of Airbnb, enabling users to explore and book travel accommodations. The application is built using React, Vite, Material UI, Node.js, Express.js, and MongoDB.
+A modern full-stack travel booking platform built with the MERN stack. This application delivers a seamless user experience for exploring and booking accommodations, complete with real-time chat support and interactive features.
 
----
+## Table of Contents
 
-## Table of ontents
-
-- [Features](#features)
+- [Project Overview](#project-overview)
+- [Key Features](#key-features)
 - [Tech Stack](#tech-stack)
-- [Installation](#installation)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
+- [Features in Detail](#features-in-detail)
+  - [Smart Search System](#smart-search-system)
+  - [Real-time Chat Support](#real-time-chat-support)
+  - [Booking System](#booking-system)
 - [Screenshots](#screenshots)
 - [Future Enhancements](#future-enhancements)
+- [Contributing](#contributing)
 - [License](#license)
 
----
+## Key Features
 
-## Features
-
-- **User Authentication**: Secure login and signup using JSON Web Tokens (JWT).
-- **Property Listings**: View and filter properties based on location, price, and availability.
-- **Booking System**: Book properties for specified dates and manage bookings.
-- **User Profiles**: View and edit user details and booking history.
-- **Responsive Design**: Optimized for desktop and mobile devices.
-
----
+- **Smart Search System**: Location-based property search with interactive filters
+- **Real-time Chat Support**: WebSocket-powered FAQ bot for instant assistance
+- **User Authentication**: Secure JWT-based authentication system
+- **Interactive Booking**: Streamlined booking process with date selection
+- **Responsive Design**: Optimized experience across all devices
 
 ## Tech Stack
 
 ### Frontend
 
-- [React](https://reactjs.org/) - JavaScript library for building user interfaces.
-- [Vite](https://vitejs.dev/) - Fast build tool for modern web projects.
-- [Material UI](https://mui.com/) - React component library for building user-friendly interfaces.
-- [React Router](https://reactrouter.com/) - Routing library for navigation.
+- React + Vite for lightning-fast development
+- Material UI for polished components
+- WebSocket integration for real-time features
+- Environment-based configuration
 
 ### Backend
 
-- [Node.js](https://nodejs.org/) - JavaScript runtime for building server-side applications.
-- [Express.js](https://expressjs.com/) - Web framework for building APIs.
-- [MongoDB](https://www.mongodb.com/) - NoSQL database for data storage.
+- Node.js + Express for robust API handling
+- MongoDB for flexible data storage
+- WebSocket server for chat functionality
+- JWT for secure authentication
 
-### Tools
-
-- [Axios](https://axios-http.com/) - HTTP client for API calls.
-- [JWT](https://jwt.io/) - Token-based authentication.
-- [BCrypt.js](https://github.com/kelektiv/node.bcrypt.js) - Password hashing library.
-
----
-
-## Installation
+## Getting Started
 
 ### Prerequisites
 
-- Node.js and npm installed.
-- MongoDB instance running locally or in the cloud.
+- Node.js
+- MongoDB
+- npm or yarn
 
-### Steps
+### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/muzammil-13/airbnb-clone.git
    cd airbnb-clone
    ```
 2. Set up the backend:
+
    ```bash
    cd backend
    npm install
+   npm run dev
    ```
 3. Set up the frontend:
+
    ```bash
    cd frontend
    npm install
+   npm run dev
    ```
 4. Configure environment variables:
-   - Create a `.env` file in the `server` directory and add:
+
+   - Create a `.env` file in the `frontend` directory and add:
      ```
-     PORT=3000
-     JWT_SECRET=<your-jwt-key>
-     CLIENT_URL=http://localhost:5173
-     MONGO_URI=mongodb://localhost:27017/
      VITE_API_URL=http://localhost:3000
      ```
+   - Create a `.env` file in the `backend` directory and add:
+     ```
+     PORT=3000
+     MONGO_URI=mongodb://localhost:27017/
+     JWT_SECRET=your_jwt_secret
+     CLIENT_URL=http://localhost:5173
+     ```
 5. Run the application:
+
    - Start the backend:
      ```bash
      cd backend
@@ -119,6 +127,7 @@ project/
 │   ├── controllers/
 │   ├── models/
 │   ├── routes/
+│   ├── services/
 │   ├── server.js
 │   └── package.json
 ├── frontend/
@@ -126,12 +135,38 @@ project/
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
+│   │   ├── styles/
 │   │   ├── App.js
 │   │   ├── index.js
 │   │   └── package.json
 ├── .gitignore
 └── README.md
 ```
+
+---
+
+## Features in Detail
+
+### Smart Search System
+
+- Location-based filtering
+- Price range selection
+- Date availability checking
+- Interactive map integration
+
+### Real-time Chat Support
+
+- Instant response FAQ bot
+- Keyword suggestions
+- Persistent chat history
+- Automatic reconnection
+
+### Booking System
+
+- Interactive calendar
+- Real-time availability
+- Instant confirmation
+- Booking management
 
 ---
 
@@ -162,10 +197,19 @@ Signup:
 - **Payment Integration**: Add a payment gateway for bookings.
 - **Property Reviews**: Allow users to leave reviews and ratings.
 - **Admin Dashboard**: Manage property listings and bookings.
+- **Host Dashboard**: Manage property listings and bookings.
+- **Advanced Search Filters**: Add more filters for property search.
+- **Mobile Applications**: Develop mobile apps for iOS and Android.
 
-[Demo: Tech Architecture with Future implementions]
+[Demo: Tech Architecture with Future implementations]
 
 ![1734529435931](image/README/1734529435931.png)
+
+---
+
+## Contributing
+
+Contributions are welcome! Feel free to submit pull requests or open issues for improvements.
 
 ---
 

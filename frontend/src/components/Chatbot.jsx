@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Paper, TextField, IconButton, Box, Typography } from '@mui/material';
+import { Paper, TextField, IconButton, Box, Typography, Button, Stack } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 function Chatbot() {
@@ -7,39 +7,53 @@ function Chatbot() {
     const [input, setInput] = useState('');
     const [socket, setSocket] = useState(null);
     const messagesEndRef = useRef(null);
+    
+    const keywords = ['hello', 'booking', 'payment', 'cancel', 'location', 'price'];
+
+    const handleKeywordClick = (keyword) => {
+        if (socket) {
+            socket.send(keyword);
+            setMessages(prev => [...prev, { text: keyword, sender: 'user' }]);
+        }
+    };
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
     useEffect(() => {
-        const ws = new WebSocket('ws://localhost:5000');
+        let ws = null;
+        const connectWebSocket = () => {
+            ws = new WebSocket(`ws://${import.meta.env.VITE_API_URL.replace('http://', '')}`);
+            
+            ws.onopen = () => {
+                console.log('Connected to chatbot');
+                setSocket(ws);
+            };
         
-        ws.onopen = () => {
-            console.log('Connected to chatbot');
+            ws.onmessage = (event) => {
+                setMessages(prev => [...prev, { text: event.data, sender: 'bot' }]);
+            };
+        
+            ws.onerror = (error) => {
+                console.log('WebSocket error:', error);
+                setTimeout(connectWebSocket, 3000);
+            };
+        
+            ws.onclose = () => {
+                console.log('WebSocket connection closed');
+                setTimeout(connectWebSocket, 3000);
+            };
         };
     
-        ws.onmessage = (event) => {
-            setMessages(prev => [...prev, { text: event.data, sender: 'bot' }]);
-        };
-    
-        ws.onerror = (error) => {
-            console.log('WebSocket error:', error);
-        };
-    
-        ws.onclose = () => {
-            console.log('WebSocket connection closed');
-        };
-    
-        setSocket(ws);
+        connectWebSocket();
     
         return () => {
-            if (ws.readyState === WebSocket.OPEN) {
+            if (ws && ws.readyState === WebSocket.OPEN) {
                 ws.close();
             }
         };
     }, []);
-    
 
     useEffect(() => {
         scrollToBottom();
@@ -63,8 +77,42 @@ function Chatbot() {
         <Paper elevation={3} sx={{ position: 'fixed', bottom: 20, right: 20, width: 300, height: 400 }}>
             <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h6" sx={{ p: 2, bgcolor: 'primary.main', color: 'white' }}>
-                    Travel Assistant
+                    FAQ Bot 🏖️
                 </Typography>
+
+                <Stack 
+                    direction="row" 
+                    spacing={1} 
+                    sx={{ 
+                        p: 1, 
+                        overflowX: 'auto',
+                        '&::-webkit-scrollbar': {
+                            height: '6px'
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: 'rgba(0,0,0,.2)',
+                            borderRadius: '3px'
+                        }
+                    }}
+                >
+                    {keywords.map((keyword) => (
+                        <Button
+                            key={keyword}
+                            variant="outlined"
+                            size="small"
+                            onClick={() => handleKeywordClick(keyword)}
+                            sx={{ 
+                                whiteSpace: 'nowrap',
+                                minWidth: 'auto',
+                                px: 1,
+                                textTransform: 'none',
+                                borderColor: 'primary.light'
+                            }}
+                        >
+                            {keyword}
+                        </Button>
+                    ))}
+                </Stack>
                 
                 <Box sx={{ flex: 1, overflow: 'auto', p: 2 }}>
                     {messages.map((msg, index) => (
@@ -83,7 +131,7 @@ function Chatbot() {
                                     maxWidth: '80%'
                                 }}
                             >
-                                <Typography>{msg.text}</Typography>
+                                <Typography component="div">{msg.text}</Typography>
                             </Paper>
                         </Box>
                     ))}

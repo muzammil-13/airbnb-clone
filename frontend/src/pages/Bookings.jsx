@@ -22,6 +22,21 @@ const Bookings = ({price}) => {
         locationTitle: title,
         price: parseInt(price) // Use the passed price
     });
+
+    // Update the price calculation logic
+const calculateTotalPrice = () => {
+    if (checkInDate && checkOutDate) {
+        const nights = differenceInDays(checkOutDate, checkInDate);
+        // Base price per night * number of nights * number of guests
+        const baseTotal = parseInt(price) * nights;
+        setTotalPrice(baseTotal);
+        
+        setBookingDetails(prev => ({
+            ...prev,
+            price: baseTotal
+        }));
+    }
+};
     
     const [location, setLocation] = useState(null);
     // itinerary state to store the selected dates

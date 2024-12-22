@@ -187,18 +187,17 @@ const generateItinerary = (event) => {
                     />
                 </div>
     
-                {/* // Update the price summary display */}
-<div className="price-summary">
-    <Typography variant="h5">Price Details</Typography>
-    <div className="price-breakdown">
-        <span>₹{price} x {differenceInDays(checkOutDate, checkInDate) || 0} nights</span>
-        <span>₹{totalPrice}</span>
-    </div>
-    <div className="price-total">
-        <Typography variant="h6">Total</Typography>
-        <Typography variant="h6">₹{totalPrice}</Typography>
-    </div>
-</div>
+                <div className="price-summary">
+                    <Typography variant="h5">Price Details</Typography>
+                    <div className="price-breakdown">
+                        <span>₹{bookingDetails.price} x {bookingDetails.guests} guests</span>
+                        <span>₹{bookingDetails.price * bookingDetails.guests}</span>
+                    </div>
+                    <div className="price-total">
+                        <Typography variant="h6">Total</Typography>
+                        <Typography variant="h6">₹{bookingDetails.price * bookingDetails.guests}</Typography>
+                    </div>
+                </div>
 
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
     <div className="date-selectors">

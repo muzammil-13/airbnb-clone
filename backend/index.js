@@ -49,6 +49,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Server startup with proper port handling
 const port = process.env.PORT || 3000;
+
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
     console.log('WebSocket server is ready');

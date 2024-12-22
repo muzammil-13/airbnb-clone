@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Paper, TextField, IconButton, Box, Typography } from '@mui/material';
+import { Paper, TextField, IconButton, Box, Typography, Button, Stack } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 function Chatbot() {
@@ -7,6 +7,15 @@ function Chatbot() {
     const [input, setInput] = useState('');
     const [socket, setSocket] = useState(null);
     const messagesEndRef = useRef(null);
+    
+    const keywords = ['hello', 'booking', 'payment', 'cancel', 'location', 'price'];
+
+    const handleKeywordClick = (keyword) => {
+        if (socket) {
+            socket.send(keyword);
+            setMessages(prev => [...prev, { text: keyword, sender: 'user' }]);
+        }
+    };
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -45,9 +54,6 @@ function Chatbot() {
             }
         };
     }, []);
-    
-    
-    
 
     useEffect(() => {
         scrollToBottom();
@@ -73,31 +79,64 @@ function Chatbot() {
                 <Typography variant="h6" sx={{ p: 2, bgcolor: 'primary.main', color: 'white' }}>
                     FAQ Bot 🏖️
                 </Typography>
+
+                <Stack 
+                    direction="row" 
+                    spacing={1} 
+                    sx={{ 
+                        p: 1, 
+                        overflowX: 'auto',
+                        '&::-webkit-scrollbar': {
+                            height: '6px'
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: 'rgba(0,0,0,.2)',
+                            borderRadius: '3px'
+                        }
+                    }}
+                >
+                    {keywords.map((keyword) => (
+                        <Button
+                            key={keyword}
+                            variant="outlined"
+                            size="small"
+                            onClick={() => handleKeywordClick(keyword)}
+                            sx={{ 
+                                whiteSpace: 'nowrap',
+                                minWidth: 'auto',
+                                px: 1,
+                                textTransform: 'none',
+                                borderColor: 'primary.light'
+                            }}
+                        >
+                            {keyword}
+                        </Button>
+                    ))}
+                </Stack>
                 
                 <Box sx={{ flex: 1, overflow: 'auto', p: 2 }}>
-    {messages.map((msg, index) => (
-        <Box
-            key={index}
-            sx={{
-                display: 'flex',
-                justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start',
-                mb: 1
-            }}
-        >
-            <Paper
-                sx={{
-                    p: 1,
-                    bgcolor: msg.sender === 'user' ? 'primary.light' : 'grey.100',
-                    maxWidth: '80%'
-                }}
-            >
-                <Typography component="div">{msg.text}</Typography>
-            </Paper>
-        </Box>
-    ))}
-    <div ref={messagesEndRef} />
-</Box>
-
+                    {messages.map((msg, index) => (
+                        <Box
+                            key={index}
+                            sx={{
+                                display: 'flex',
+                                justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                                mb: 1
+                            }}
+                        >
+                            <Paper
+                                sx={{
+                                    p: 1,
+                                    bgcolor: msg.sender === 'user' ? 'primary.light' : 'grey.100',
+                                    maxWidth: '80%'
+                                }}
+                            >
+                                <Typography component="div">{msg.text}</Typography>
+                            </Paper>
+                        </Box>
+                    ))}
+                    <div ref={messagesEndRef} />
+                </Box>
 
                 <Box sx={{ p: 2, display: 'flex', gap: 1 }}>
                     <TextField

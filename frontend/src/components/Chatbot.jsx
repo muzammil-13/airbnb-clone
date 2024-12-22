@@ -18,15 +18,28 @@ function Chatbot() {
         ws.onopen = () => {
             console.log('Connected to chatbot');
         };
-
+    
         ws.onmessage = (event) => {
             setMessages(prev => [...prev, { text: event.data, sender: 'bot' }]);
         };
-
+    
+        ws.onerror = (error) => {
+            console.log('WebSocket error:', error);
+        };
+    
+        ws.onclose = () => {
+            console.log('WebSocket connection closed');
+        };
+    
         setSocket(ws);
-
-        return () => ws.close();
+    
+        return () => {
+            if (ws.readyState === WebSocket.OPEN) {
+                ws.close();
+            }
+        };
     }, []);
+    
 
     useEffect(() => {
         scrollToBottom();

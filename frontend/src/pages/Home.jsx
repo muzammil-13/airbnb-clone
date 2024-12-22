@@ -9,10 +9,11 @@ import { Popover, Box, Typography, Checkbox, Slider, Button } from '@mui/materia
 import SearchTrip from '../components/SearchTrip';
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
-
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => { 
     const [showChatbot, setShowChatbot] = useState(false);
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     
     // Add these state variables inside the Home component
@@ -31,6 +32,7 @@ const Home = () => {
     const handleLogout = () => {
         setIsLoggedIn(false);
         setUserAnchorEl(null);
+        // localStorage.removeItem('isLoggedIn');
     // Add your logout logic here
 };
 
@@ -136,6 +138,7 @@ const Home = () => {
                 }} 
             />
         </div>
+
         <div className='searchTripContainer' onClick={(e) => e.stopPropagation()}>
             <SearchTrip />
         </div>
@@ -250,7 +253,6 @@ const Home = () => {
             </Typography>
             </Popover>
 
-
                     <h1>Welcome to SANCHARAM Travels</h1>
                 </div>
                 
@@ -262,18 +264,11 @@ const Home = () => {
 
                 <div className="locationsGrid">
                     <LocationCard
-                        image="/images/960px-Kumarkom.jpg"
-                        title="Kerala Backwaters"
-                        description="Officially called Alappuzha, Alleppey is known for its network of canals and lagoons with beautiful backwaters and the houseboats offering overnight stays. Located in the southern part of Kerala, the coastline of Alleppey offers some of the best beaches with water sports during the dry sea...
-                                        Best Time: June to March"
+                        image="https://backpackersunited.in/_next/image?url=https%3A%2F%2Fbpu-images-v1.s3.eu-north-1.amazonaws.com%2Fuploads%2Ftestimage-pexels-nandhu-kumar-13691356.webp&w=750&q=75"
+                        title="Vagamon"
+                        description="Vagamon is an Indian hill station and a revenue village located in Peerumedu Taluk of Idukki district, and also Meenachil taluk and Kanjirappally taluk of Kottayam district in the state of Kerala, India
+                                        Best Time: Dec to Feb or June to July"
                         price={299}
-                    />
-                    <LocationCard
-                        image="https://www.holidify.com/images/bgImages/MUNNAR.jpg"
-                        title="Munnar"
-                        description="Famous for the tea estates, greenery, winding roads, blanket of mist, and viewpoints, Munnar is a hill station in Kerala, located in the Idukki district. Lying in the Western Ghats at 1600 metres, it is one of the most sought after and visited travel destinations globally, especially popular amongst...
-                                        Best Time: September to May"
-                        price={199}
                     />
                     <LocationCard
                         image="https://www.holidify.com/images/bgImages/KOCHI.jpg"
@@ -282,6 +277,14 @@ const Home = () => {
                                     Best Time: July to April"
                         price={1999}
                     />
+                    <LocationCard
+                        image="https://www.holidify.com/images/bgImages/MUNNAR.jpg"
+                        title="Munnar"
+                        description="Famous for the tea estates, greenery, winding roads, blanket of mist, and viewpoints, Munnar is a hill station in Kerala, located in the Idukki district. Lying in the Western Ghats at 1600 metres, it is one of the most sought after and visited travel destinations globally, especially popular amongst...
+                                        Best Time: September to May"
+                        price={199}
+                    />
+                    
                     <LocationCard
                         image="https://www.holidify.com/images/bgImages/VARKALA.jpg"
                         title="Varkala"
@@ -303,6 +306,7 @@ const Home = () => {
                                         Best Time: October to March"
                         price={1299}
                     />
+
                     {/* {loading ? (
                     <h3>Loading listings...</h3>
                         ) : error ? (
@@ -310,6 +314,7 @@ const Home = () => {
                         ) : (
                     <Listings listings={listings} />
                         )} */}
+
                 </div>
             </div>
 

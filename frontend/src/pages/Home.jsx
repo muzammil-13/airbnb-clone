@@ -306,6 +306,7 @@ const Home = () => {
                                         Best Time: October to March"
                         price={1299}
                     />
+
                     {/* {loading ? (
                     <h3>Loading listings...</h3>
                         ) : error ? (
@@ -313,6 +314,7 @@ const Home = () => {
                         ) : (
                     <Listings listings={listings} />
                         )} */}
+
                 </div>
             </div>
 

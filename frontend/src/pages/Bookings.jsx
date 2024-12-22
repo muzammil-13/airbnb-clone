@@ -3,6 +3,11 @@ import '../styles/Bookings.css';
 import { useParams, useNavigate } from 'react-router-dom'; // Import useParams and useNavigate
 import axios from 'axios'; // For making API requests
 import { TextField, Button, Container, Typography, Box, Grid } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { Popover } from '@mui/material';
+import { format } from 'date-fns';
 
 const Bookings = ({price}) => {
     const { title } = useParams(); // Get the title from route parameters
@@ -18,9 +23,29 @@ const Bookings = ({price}) => {
         price: parseInt(price) // Use the passed price
     });
     
-
-
     const [location, setLocation] = useState(null);
+    // itinerary state to store the selected dates
+    const [checkInDate, setCheckInDate] = useState(null);
+    const [checkOutDate, setCheckOutDate] = useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [itinerary, setItinerary] = useState(null);
+
+    // Add this function inside the component
+const generateItinerary = (event) => {
+    setAnchorEl(event.currentTarget);
+    const days = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+    
+    const dummyItinerary = Array.from({ length: days }, (_, i) => ({
+        day: i + 1,
+        activities: [
+            `Morning: Breakfast at ${title}`,
+            'Afternoon: Local sightseeing',
+            'Evening: Dinner and relaxation'
+        ]
+    }));
+    
+    setItinerary(dummyItinerary);
+};
 
 
     useEffect(() => {
@@ -158,6 +183,81 @@ const Bookings = ({price}) => {
                         <Typography variant="h6">₹{bookingDetails.price * bookingDetails.guests}</Typography>
                     </div>
                 </div>
+
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <div className="date-selectors">
+        <DatePicker
+            label="Check-in Date"
+            value={checkInDate}
+            onChange={(date) => {
+                setCheckInDate(date);
+                setBookingDetails({
+                    ...bookingDetails,
+                    checkIn: format(date, 'yyyy-MM-dd')
+                });
+            }}
+            renderInput={(params) => <TextField {...params} />}
+            minDate={new Date()}
+        />
+        <DatePicker
+            label="Check-out Date"
+            value={checkOutDate}
+            onChange={(date) => {
+                setCheckOutDate(date);
+                setBookingDetails({
+                    ...bookingDetails,
+                    checkOut: format(date, 'yyyy-MM-dd')
+                });
+            }}
+            renderInput={(params) => <TextField {...params} />}
+            minDate={checkInDate || new Date()}
+        />
+    </div>
+</LocalizationProvider>
+
+<Button
+    variant="contained"
+    color="secondary"
+    onClick={generateItinerary}
+    disabled={!checkInDate || !checkOutDate}
+    fullWidth
+    sx={{ mt: 2, mb: 2 }}
+>
+    Generate Sample Itinerary
+</Button>
+
+<Popover
+    open={Boolean(anchorEl)}
+    anchorEl={anchorEl}
+    onClose={() => setAnchorEl(null)}
+    anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+    }}
+    transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+    }}
+>
+    <Box sx={{ p: 3, maxWidth: 400 }}>
+        <Typography variant="h6" gutterBottom>
+            Your Itinerary planning
+        </Typography>
+        {itinerary && itinerary.map((day) => (
+            <Box key={day.day} sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" fontWeight="bold">
+                    Day {day.day}
+                </Typography>
+                {day.activities.map((activity, index) => (
+                    <Typography key={index} variant="body2">
+                        • {activity}
+                    </Typography>
+                ))}
+            </Box>
+        ))}
+    </Box>
+</Popover>
+
     
                 <div className="button-group">
                     <Button

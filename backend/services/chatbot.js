@@ -44,9 +44,9 @@ wss.on('connection', (ws) => {
       ws.send(response);
   });
 
-    console.log('Sending reply to user:', reply); // Log sent reply
-    // Send the reply back to the client
-    ws.send(reply);
+    // console.log('Sending reply to user:', reply); // Log sent reply
+    // // Send the reply back to the client
+    // ws.send(reply);
   
 
   // Handle WebSocket close event

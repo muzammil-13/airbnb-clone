@@ -8,55 +8,55 @@ function Listings() {
             id: 1,
             name: "Kumarakom Lake Resort",
             location: "Kumarakom",
-            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
-            description: "Luxury backwater resort featuring traditional Kerala architecture, infinity pool, and Ayurvedic spa.",
+            image: "https://www.kumarakomlakeresort.in/assets/images/luxury-dining/vembanad-the-seafood-bar/vembanad-the-seafood-bar.jpg",
+            description: "Kumarakom Lake Resort is a luxury resort located in Kumarakom, Kerala, India. The resort is set on 25 acres of land on the Vembanad Lake shore. The resort has 59 villas, suites and rooms, a wellness spa, and two restaurants. The resort is a part of the Small Luxury Hotels of the World (SLH) marketing chain.",
             price: 25000,
             rating: 4.8
         },
         {
             id: 2,
             name: "Tea Valley Resort Munnar",
-            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
+            image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/24/f1/6b/20/exterior.jpg?w=1200&h=-1&s=1",
             location: "Munnar",
-            description: "Nestled in tea plantations offering panoramic valley views, mountain treks, and tea tasting experiences.",
+            description: "Tea Valley Resort Munnar is a 3-star property located in Munnar. Featuring a 24-hour front desk, this property also provides guests with a restaurant. The property is non-smoking and is situated 12 km from Munnar Tea Museum.",
             price: 15000,
             rating: 4.6
         },
         {
             id: 3,
             name: "Marari Beach Resort",
-            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
+            image: "https://www.cghearth.com/uploads/DestinationImages/20170602073240AMDestImgmararibeach-beachviewfrompool.jpg",
             location: "Marari Beach",
-            description: "Beachfront eco-resort with traditional Kerala villas, seafood restaurant, and wellness center.",
+            description: "Marari Beach Resort is a beach resort located in Alappuzha district of Kerala, India. It was awarded the title of Best Boutique Hotel by the World Boutique Hotel Awards in 2017. The resort is set in 30 acres of land with a large pond in the middle.",
             price: 18000,
-            rating: 4.7
+            rating: 4.0
         },
         {
             id: 4,
             name: "Wayanad Wild Resort",
-            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
+            image: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/361058006.jpg?k=4f4f7b8096c9c2a7041c02226ad881b5bc883e18b95394bad7163f79c3bc490e&o=&hp=1",
             location: "Wayanad",
             description: "Treehouse accommodation in the midst of rainforest, offering wildlife tours and nature walks.",
             price: 12000,
-            rating: 4.5
+            rating: 4.9
         },
         {
             id: 5,
             name: "Coconut Lagoon",
-            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
+            image: "https://www.cghearth.com/uploads/DestinationImages/20190828072807amdestimg1.jpg",
             location: "Kumarakom",
-            description: "Heritage lakeside resort accessible only by boat, featuring mansion rooms and private pools.",
+            description: "Coconut Lagoon is a CGH Earth property located in Kumarakom, Kerala, India. The resort is set on the Vembanad Lake shore. The resort is a part of the Small Luxury Hotels of the World (SLH) marketing chain.",
             price: 22000,
-            rating: 4.9
+            rating: 3.9
         },
         {
             id: 6,
             name: "Marari Beach Resort 2",
-            image: "https://www.shutterstock.com/shutterstock/photos/305396333/display_1500/stock-photo-close-up-lifestyle-photo-of-hipster-student-accessories-still-life-of-random-objects-of-modern-305396333.jpg",
+            image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/a7/86/ce/modelled-on-the-fishermens.jpg?w=1200&h=-1&s=1",
             location: "Marari Beac",
             description: "Beachfront eco-resort with traditional Kerala villas, seafood restaurant, and wellness center.",
             price: 18000,
-            rating: 5.0
+            rating: 4.9
         }
 
     ];

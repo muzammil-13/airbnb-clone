@@ -90,3 +90,13 @@
         padding: 20px;
     }
 }
+
+.date-selectors {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.date-selectors .MuiTextField-root {
+    flex: 1;
+}

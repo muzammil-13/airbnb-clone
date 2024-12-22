@@ -13,32 +13,40 @@ function Chatbot() {
     };
 
     useEffect(() => {
-        const ws = new WebSocket('ws://localhost:5000');
+        let ws = null;
+        const connectWebSocket = () => {
+            ws = new WebSocket(`ws://${import.meta.env.VITE_API_URL.replace('http://', '')}`);
+            
+            ws.onopen = () => {
+                console.log('Connected to chatbot');
+                setSocket(ws);
+            };
         
-        ws.onopen = () => {
-            console.log('Connected to chatbot');
+            ws.onmessage = (event) => {
+                setMessages(prev => [...prev, { text: event.data, sender: 'bot' }]);
+            };
+        
+            ws.onerror = (error) => {
+                console.log('WebSocket error:', error);
+                setTimeout(connectWebSocket, 3000);
+            };
+        
+            ws.onclose = () => {
+                console.log('WebSocket connection closed');
+                setTimeout(connectWebSocket, 3000);
+            };
         };
     
-        ws.onmessage = (event) => {
-            setMessages(prev => [...prev, { text: event.data, sender: 'bot' }]);
-        };
-    
-        ws.onerror = (error) => {
-            console.log('WebSocket error:', error);
-        };
-    
-        ws.onclose = () => {
-            console.log('WebSocket connection closed');
-        };
-    
-        setSocket(ws);
+        connectWebSocket();
     
         return () => {
-            if (ws.readyState === WebSocket.OPEN) {
+            if (ws && ws.readyState === WebSocket.OPEN) {
                 ws.close();
             }
         };
     }, []);
+    
+    
     
 
     useEffect(() => {
@@ -63,32 +71,33 @@ function Chatbot() {
         <Paper elevation={3} sx={{ position: 'fixed', bottom: 20, right: 20, width: 300, height: 400 }}>
             <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h6" sx={{ p: 2, bgcolor: 'primary.main', color: 'white' }}>
-                    Travel Assistant
+                    FAQ Bot 🏖️
                 </Typography>
                 
                 <Box sx={{ flex: 1, overflow: 'auto', p: 2 }}>
-                    {messages.map((msg, index) => (
-                        <Box
-                            key={index}
-                            sx={{
-                                display: 'flex',
-                                justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start',
-                                mb: 1
-                            }}
-                        >
-                            <Paper
-                                sx={{
-                                    p: 1,
-                                    bgcolor: msg.sender === 'user' ? 'primary.light' : 'grey.100',
-                                    maxWidth: '80%'
-                                }}
-                            >
-                                <Typography>{msg.text}</Typography>
-                            </Paper>
-                        </Box>
-                    ))}
-                    <div ref={messagesEndRef} />
-                </Box>
+    {messages.map((msg, index) => (
+        <Box
+            key={index}
+            sx={{
+                display: 'flex',
+                justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                mb: 1
+            }}
+        >
+            <Paper
+                sx={{
+                    p: 1,
+                    bgcolor: msg.sender === 'user' ? 'primary.light' : 'grey.100',
+                    maxWidth: '80%'
+                }}
+            >
+                <Typography component="div">{msg.text}</Typography>
+            </Paper>
+        </Box>
+    ))}
+    <div ref={messagesEndRef} />
+</Box>
+
 
                 <Box sx={{ p: 2, display: 'flex', gap: 1 }}>
                     <TextField

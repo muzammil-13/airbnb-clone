@@ -3,7 +3,8 @@
 ## Project Overview
 
 A modern full-stack travel booking platform built with the MERN stack. This application delivers a seamless user experience for exploring and booking accommodations, complete with real-time chat support and interactive features.
-
+<br>
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6f1109fc-25ed-4bf5-a63b-c63ae8c854a9/deploy-status)](https://app.netlify.com/sites/sancharam-travels-mi13/deploys)
 ## Table of Contents
 
 - [Project Overview](#project-overview)

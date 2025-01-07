@@ -13,7 +13,6 @@
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage"
   },
-  
   "dependencies": {
     "@date-io/date-fns": "^3.0.0",
     "@emotion/react": "^11.14.0",

@@ -6,8 +6,9 @@ import { TextField, Button, Container, Typography, Box, Grid } from '@mui/materi
 import { DatePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { format, differenceInDays } from 'date-fns';
 import { Popover } from '@mui/material';
-import { format } from 'date-fns';
+
 
 const Bookings = ({price}) => {
     const { title } = useParams(); // Get the title from route parameters
@@ -23,20 +24,28 @@ const Bookings = ({price}) => {
         price: parseInt(price) // Use the passed price
     });
 
-    // Update the price calculation logic
+// Add a totalPrice state
+const [totalPrice, setTotalPrice] = useState(0);
+
+// Fix the calculateTotalPrice function
 const calculateTotalPrice = () => {
     if (checkInDate && checkOutDate) {
         const nights = differenceInDays(checkOutDate, checkInDate);
-        // Base price per night * number of nights * number of guests
-        const baseTotal = parseInt(price) * nights;
+        const baseTotal = parseInt(price) * nights * bookingDetails.guests;
         setTotalPrice(baseTotal);
-        
         setBookingDetails(prev => ({
             ...prev,
             price: baseTotal
         }));
     }
 };
+// Add useEffect to recalculate price when dates or guests change
+useEffect(() => {
+    calculateTotalPrice();
+}, [checkInDate, checkOutDate, bookingDetails.guests]);
+
+
+
     
     const [location, setLocation] = useState(null);
     // itinerary state to store the selected dates
@@ -61,7 +70,6 @@ const generateItinerary = (event) => {
     
     setItinerary(dummyItinerary);
 };
-
 
     useEffect(() => {
         axios.get(`/api/locations/${title}`)

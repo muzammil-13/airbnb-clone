@@ -1,121 +1,45 @@
-const User = require('../models/User.models'); // Assuming you have this User model
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import User from '../models/User.model.js';
 
+export const loginUser = async (req, res) => {
+    const { email, password } = req.body;
 
-// Login Controller
-exports.login = async (req, res) => {
     try {
-        const { email, password } = req.body;
-
-        // Debug log
-        console.log('Login attempt for email:', email);
-
         const user = await User.findOne({ email });
         if (!user) {
-            console.log('No user found with email:', email);
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(400).json({ message: 'User not found' });
         }
 
-        // Debug log
-        console.log('User found, comparing password');
-
-        const isMatch = await user.comparePassword(password);
-        
-        // Debug log
-        console.log('Password match result:', isMatch);
-
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        const token = jwt.sign(
-            { userId: user._id }, 
-            process.env.JWT_SECRET,
-            { expiresIn: '1h' }
-        );
-
-        res.status(200).json({
-            message: "Login successful",
-            token,
-            user: {
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                role: user.role
-            }
-        });
-
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.json({ token, user: { id: user._id, email: user.email, username: user.username } });
     } catch (error) {
-        console.error("Login Error:", error);
-        res.status(500).json({ message: "An error occurred during login" });
+        res.status(500).json({ message: 'Server error' });
     }
 };
 
-// register controller
-exports.register = async (req, res) => {
+export const registerUser = async (req, res) => {
+    const { email, password, username } = req.body;
+
     try {
-        const { firstName, lastName, email, password } = req.body;
-
-        // Add validation
-        if (!email || !password || !firstName || !lastName) {
-            return res.status(400).json({ 
-                message: "All fields are required" 
-            });
-        }
-
-        // Check email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            return res.status(400).json({ 
-                message: "Invalid email format" 
-            });
-        }
-
-        // Check if user exists - use case-insensitive search
-        const existingUser = await User.findOne({ 
-            email: { $regex: new RegExp(`^${email}$`, 'i') } 
-        });
-        
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ 
-                message: "Email already in use" 
-            });
+            return res.status(400).json({ message: 'User already exists' });
         }
 
-        // Create new user
-        const newUser = new User({
-            firstName,
-            lastName,
-            email: email.toLowerCase(), // Store email in lowercase
-            password // Password will be hashed by the pre-save middleware
-        });
+        const hashedPassword = await bcrypt.hash(password, 12);
+        const newUser = new User({ email, password: hashedPassword, username });
 
         await newUser.save();
 
-        const token = jwt.sign(
-            { userId: newUser._id },
-            process.env.JWT_SECRET,
-            { expiresIn: '1h' }
-        );
-
-        res.status(201).json({
-            message: "User registered successfully",
-            token,
-            user: {
-                id: newUser._id,
-                firstName: newUser.firstName,
-                lastName: newUser.lastName,
-                email: newUser.email,
-                role: newUser.role
-            }
-        });
-
+        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.json({ token, user: { id: newUser._id, email: newUser.email, username: newUser.username } });
     } catch (error) {
-        console.error("Register Error:", error);
-        res.status(500).json({ 
-            message: "An error occurred during registration" 
-        });
+        res.status(500).json({ message: 'Server error' });
     }
 };

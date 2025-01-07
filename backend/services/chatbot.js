@@ -1,7 +1,7 @@
-const WebSocket = require('ws');
+import { WebSocketServer } from 'ws';
 
-function setupWebSocketServer(server) {
-    const wss = new WebSocket.Server({ server });
+const setupWebSocketServer = (server) => {
+    const wss = new WebSocketServer({ server });
 
     const chatbotResponses = {
         'hello': 'Hi there! How can I help you with your travel plans?',
@@ -19,20 +19,14 @@ function setupWebSocketServer(server) {
         ws.send('Welcome! How can I help you with your travel plans today?');
 
         ws.on('message', (message) => {
-            const userMessage = message.toString().toLowerCase();
-            let response = chatbotResponses.default;
-            
-            Object.keys(chatbotResponses).forEach(key => {
-                if (userMessage.includes(key)) {
-                    response = chatbotResponses[key];
-                }
-            });
-            
+            const response = chatbotResponses[message.toLowerCase()] || chatbotResponses['default'];
             ws.send(response);
         });
+
+        ws.on('close', () => {
+            console.log('Client disconnected from chatbot');
+        });
     });
+};
 
-    return wss;
-}
-
-module.exports = setupWebSocketServer;
+export default setupWebSocketServer;

@@ -64,7 +64,7 @@ function App() {
           <Route path="/details/:title" element={<Details />} />
           <Route
             path="/AuthForm"
-            element={!user ? <AuthForm setUser={setUser} /> : <Navigate to="/" />} // Redirect if logged in
+            element={!user ? <AuthForm setUser={setUser} /> : <Navigate to="/" />}
           />
              <Route path="*" element={<Navigate to="/" />} />
              <Route path="/bookings/:title" element={<Bookings />} />

@@ -27,6 +27,15 @@ const authorizeRole = (roles)=>{
         } 
     } 
 } 
+
+// Add User model import
+const User = require('../models/User.model');
+// Add token expiration check
+const decodedToken = verifyAccessToken(token);
+if(decodedToken.exp < Date.now() / 1000) {
+    return res.status(401).json({ message: "Token expired" });
+}
+
  
  
 module.exports = { authenticateToken, authorizeRole };

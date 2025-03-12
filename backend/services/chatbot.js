@@ -16,6 +16,16 @@ const setupWebSocketServer = (server) => {
 
     wss.on('connection', (ws) => {
         console.log('Client connected to chatbot');
+
+        const interval = setInterval(() => {
+            if (ws.isAlive === false) return ws.terminate();
+            ws.isAlive = false;
+            ws.ping();
+        }, 30000);
+        
+        ws.on('pong', () => { ws.isAlive = true; });
+        ws.on('error', (error) => { console.error('WebSocket error:', error); });
+
         ws.send('Welcome! How can I help you with your travel plans today?');
 
         ws.on('message', (message) => {

@@ -22,9 +22,30 @@ project/
 │   └── package.json
 ├── frontend/
 │   ├── public/
+│   │   ├── assets/
+│   │   │   └── images/
+│   │   ├── favicon.ico
+│   │   └── index.html
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── Auth/
+│   │   │   ├── Booking/
+│   │   │   ├── Chat/
+│   │   │   ├── Layout/
+│   │   │   ├── Property/
+│   │   │   └── Search/
 │   │   ├── pages/
+│   │   │   ├── Home/
+│   │   │   ├── Login/
+│   │   │   ├── Profile/
+│   │   │   ├── PropertyDetails/
+│   │   │   └── Register/
+│   │   ├── services/
+│   │   │   ├── api.js
+│   │   │   └── auth.js
+│   │   ├── styles/
+│   │   │   └── index.css
+│   │   ├── utils/
 │   │   ├── config.js
 │   │   ├── App.js
 │   │   └── index.js

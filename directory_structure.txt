@@ -1,9 +1,23 @@
 project/
 ├── backend/
+│   ├── __tests__/
+│   │   └── auth.test.js
 │   ├── config/
 │   ├── controllers/
+│   │   └── auth.controller.js
+│   ├── middleware/
+│   │   └── auth.middleware.js
 │   ├── models/
+│   │   ├── Booking.model.js
+│   │   ├── Property.model.js
+│   │   └── User.model.js
 │   ├── routes/
+│   │   ├── auth.routes.js
+│   │   └── listings.router.js
+│   ├── services/
+│   │   ├── api.js
+│   │   └── chatbot.js
+│   ├── jest.config.js
 │   ├── server.js
 │   └── package.json
 ├── frontend/
@@ -11,8 +25,12 @@ project/
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
+│   │   ├── config.js
 │   │   ├── App.js
-│   │   ├── index.js
-│   │   └── package.json
+│   │   └── index.js
+│   ├── eslint.config.js
+│   ├── tailwind.config.js
+│   ├── vite.config.js
+│   └── package.json
 ├── .gitignore
 └── README.md
